@@ -1,5 +1,6 @@
 # language: de
 # encoding: utf-8
+  @ignore
 Funktionalität: [TUW [tuwien]
 
   Grundlage:
