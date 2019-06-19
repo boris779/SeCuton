@@ -8,14 +8,13 @@ import driverutil.PageNotFoundException
 import driverutil.WebDriverSession
 import driverutil.WebDriverSessionStore
 import driverutil.toBoolean
-import log
 import org.openqa.selenium.WebDriver
 import pageobjects.AbstractPage
 import kotlin.reflect.KClass
 
 open class AbstractStepDefs : En {
 
-    lateinit var testId: String
+    val log by logger()
     var header: Boolean = false
     var current_scenario : Scenario? = null
 
@@ -33,8 +32,8 @@ open class AbstractStepDefs : En {
         if (pageClass.isInstance(page)) {
             return page as T
         }
-        log().error("Expect Page from type $pageClass but was $page")
-         throw PageNotFoundException("Expect Page from type $pageClass but was $page")
+        log.error("Expect Page from type $pageClass but was $page")
+        throw PageNotFoundException("Expect Page from type $pageClass but was $page")
     }
 
     fun getCurrentPage(): AbstractPage? {

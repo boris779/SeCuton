@@ -8,7 +8,7 @@ import io.appium.java_client.remote.IOSMobileCapabilityType
 import io.appium.java_client.remote.MobileCapabilityType
 import io.appium.java_client.remote.MobilePlatform
 import io.github.bonigarcia.wdm.WebDriverManager
-import log
+import logger
 import org.apache.commons.lang3.StringUtils
 import org.openqa.selenium.*
 import org.openqa.selenium.Dimension
@@ -31,6 +31,8 @@ import java.time.LocalDateTime
 import java.util.concurrent.TimeUnit
 
 object DriverFactory {
+
+    val log by logger()
 
     fun createWebDriver(scenarioId: String): WebDriver {
 
@@ -140,9 +142,9 @@ object DriverFactory {
                     topLeft = getTopLeftScreenPosition(graphicsDevice)
                 }
             } catch (e: NoClassDefFoundError) {
-                log().debug("Graphics settings not initialized!" + e)
+                log.debug("Graphics settings not initialized!" + e)
             } catch (e: RuntimeException) {
-                log().debug("Graphics settings not initialized!" + e)
+                log.debug("Graphics settings not initialized!" + e)
             }
 
             webDriver.manage().window().position.moveBy(topLeft.x, topLeft.y)

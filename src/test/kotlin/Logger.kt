@@ -1,6 +1,6 @@
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-inline fun <reified T> T.log(): Logger {
-    return LoggerFactory.getLogger(T::class.java)
-}
+fun <R : Any> R.logger(): Lazy<Logger> = lazy { LoggerFactory.getLogger(getClassName(this::class.java)) }
+
+private fun <T : Any> getClassName(clazz: Class<T>): String = clazz.name.replace("""\$.*$""", "")

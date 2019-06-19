@@ -4,13 +4,14 @@ import cucumber.api.Scenario
 import cucumber.api.java.After
 import cucumber.api.java.Before
 import driverutil.WebDriverSessionStore
-import log
+import logger
 import org.openqa.selenium.OutputType
 import org.openqa.selenium.TakesScreenshot
 
 
 class Hooks {
 
+    val log by logger()
 
     @Before
     fun beforeScrenario(scenario: Scenario) {
@@ -22,19 +23,19 @@ class Hooks {
         //Do Database resets here
 
         if (jobname != null) {
-            log().debug("##################################################################")
-            log().debug("###### JENKINS INFOS: ############################################")
-            log().debug("# BUILD_NUMBER:" + System.getenv("BUILD_NUMBER"))
-            log().debug("# JOB_NAME: " + System.getenv("JOB_NAME"))
-            log().debug("# JENKINS_URL:" + System.getenv("JENKINS_URL"))
-            log().debug("# WORKSPACE: " + System.getenv("WORKSPACE"))
-            log().debug("# NODE_NAME: " + System.getenv("NODE_NAME"))
-            log().debug("##################################################################")
+            log.debug("##################################################################")
+            log.debug("###### JENKINS INFOS: ############################################")
+            log.debug("# BUILD_NUMBER:" + System.getenv("BUILD_NUMBER"))
+            log.debug("# JOB_NAME: " + System.getenv("JOB_NAME"))
+            log.debug("# JENKINS_URL:" + System.getenv("JENKINS_URL"))
+            log.debug("# WORKSPACE: " + System.getenv("WORKSPACE"))
+            log.debug("# NODE_NAME: " + System.getenv("NODE_NAME"))
+            log.debug("##################################################################")
         }
 
-        log().debug("####################################")
-        log().info("executing Scenario:" + scenario.name)
-        log().debug("####################################")
+        log.debug("####################################")
+        log.info("executing Scenario:" + scenario.name)
+        log.debug("####################################")
     }
 
 
