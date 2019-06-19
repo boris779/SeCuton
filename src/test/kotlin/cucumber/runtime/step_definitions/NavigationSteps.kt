@@ -5,6 +5,8 @@ import cucumber.api.java.Before
 import cucumber.api.java.de.Angenommen
 import cucumber.api.java.de.Wenn
 import cucumber.api.java.en.Given
+import pageobjects.MainPage
+import pageobjects.PageUrls
 
 
 class NavigationSteps : AbstractStepDefs() {
@@ -24,8 +26,7 @@ class NavigationSteps : AbstractStepDefs() {
 
     @Given("the Startpage is loaded")
     fun the_Startpage_is_loaded() {
-        // Write code here that turns the phrase above into concrete actions
-        throw cucumber.api.PendingException();
+        getWebDriverSession().gotoUrl(PageUrls.HOME, MainPage::class, this.current_scenario!!)
     }
 
 
