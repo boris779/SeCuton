@@ -109,7 +109,8 @@
     <orderEntry type="library" name="Maven: io.cucumber:gherkin:5.1.0" level="project" />
     <orderEntry type="library" name="Maven: io.cucumber:gherkin-jvm-deps:1.0.4" level="project" />
     <orderEntry type="library" name="Maven: io.cucumber:tag-expressions:1.1.1" level="project" />
-    <orderEntry type="library" name="Maven: com.github.kittinunf.fuel:fuel:1.14.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-picocontainer:4.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.picocontainer:picocontainer:2.15" level="project" />
     <orderEntry type="library" name="Maven: io.appium:java-client:7.0.0" level="project" />
     <orderEntry type="library" name="Maven: cglib:cglib:3.2.8" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm:6.2.1" level="project" />
