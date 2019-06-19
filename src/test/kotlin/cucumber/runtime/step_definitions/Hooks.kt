@@ -9,16 +9,21 @@ import org.openqa.selenium.OutputType
 import org.openqa.selenium.TakesScreenshot
 
 
-class Hooks {
+class Hooks(private val testDataContainer: TestDataContainer) {
 
     val log by logger()
 
     @Before
     fun beforeScrenario(scenario: Scenario) {
 
+
+        testDataContainer.setScenario(scenario)
+        testDataContainer.setTestData("browser.type", System.getProperty("browser", "no browser set"))
+        testDataContainer.setTestData("browser.version", System.getProperty("browser.version", "no version set"))
+        testDataContainer.setTestData("initialized", false)
+
         // to check if it runs on Jenkins or local
         val jobname = System.getenv("JOB_NAME")
-        val browser = System.getProperty("browser")
 
         //Do Database resets here
 

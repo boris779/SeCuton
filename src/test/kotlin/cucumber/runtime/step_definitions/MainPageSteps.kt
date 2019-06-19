@@ -3,16 +3,10 @@ package cucumber.runtime.step_definitions
 import cucumber.api.Scenario
 import cucumber.api.java.Before
 import cucumber.api.java.en.Then
+import pageobjects.MainPage
 
 
-class MainPageSteps() : AbstractStepDefs() {
-
-    @Before
-    fun beforeScrenario(scenario: Scenario) {
-        //FIXME testid cann be extract from scenario
-        testId = extractTestIdFromScenarioName(scenario.name)
-        current_scenario = scenario;
-    }
+class MainPageSteps(testDataContainer: TestDataContainer) : AbstractStepDefs(testDataContainer) {
 
 
     @Then("the peso-logo should be displayed")

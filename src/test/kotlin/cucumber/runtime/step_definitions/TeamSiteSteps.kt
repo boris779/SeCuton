@@ -4,7 +4,7 @@ import cucumber.api.java.en.Then
 import cucumber.api.java.en.When
 
 
-class TeamSiteSteps : AbstractStepDefs() {
+class TeamSiteSteps(testDataContainer: TestDataContainer) : AbstractStepDefs(testDataContainer) {
 
 
     @When("the Teamsite is loaded")

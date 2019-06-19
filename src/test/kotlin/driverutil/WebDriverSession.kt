@@ -2,6 +2,7 @@ package driverutil
 
 import assertk.fail
 import cucumber.api.Scenario
+import cucumber.runtime.step_definitions.TestDataContainer
 import org.openqa.selenium.WebDriver
 import pageobjects.AbstractPage
 import pageobjects.PageUrls
@@ -30,7 +31,9 @@ class WebDriverSession(val testId: String) {
     }
 
 
-    fun gotoUrl(subUrl: PageUrls, pageClass: KClass<out AbstractPage>, scenario: Scenario) {
+    fun gotoUrl(subUrl: PageUrls, pageClass: KClass<out AbstractPage>, testDataContainer: TestDataContainer) {
+
+        val scenario = testDataContainer.getScenario()
 
         val fullUrl = baseUrl + subUrl.subUrl
         webDriver.get(fullUrl)

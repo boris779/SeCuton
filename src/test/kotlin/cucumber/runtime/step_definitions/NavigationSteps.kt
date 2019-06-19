@@ -9,24 +9,11 @@ import pageobjects.MainPage
 import pageobjects.PageUrls
 
 
-class NavigationSteps : AbstractStepDefs() {
-
-    @Before
-    fun beforeScrenario(scenario: Scenario) {
-        //FIXME testid cann be extract from scenario
-        testId = extractTestIdFromScenarioName(scenario.name)
-        current_scenario = scenario;
-    }
-
-    @Angenommen("die Startseite ist geladen")
-    @Wenn("die Startseite geladen ist")
-    fun dieStartseiteGeladenIst() {
-        //FIXME
-    }
+class NavigationSteps(testDataContainer: TestDataContainer) : AbstractStepDefs(testDataContainer) {
 
     @Given("the Startpage is loaded")
     fun the_Startpage_is_loaded() {
-        getWebDriverSession().gotoUrl(PageUrls.HOME, MainPage::class, this.current_scenario!!)
+        getWebDriverSession().gotoUrl(PageUrls.HOME, MainPage::class, testDataContainer)
     }
 
 
