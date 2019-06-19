@@ -50,7 +50,7 @@ object DriverFactory {
 
             when (driverType) {
                 DriverType.CHROME -> {
-                    WebDriverManager.chromedriver().setup()
+                    WebDriverManager.chromedriver().version(driverVersion).setup()
                     val options = ChromeOptions()
 
                     webDriver = ChromeDriver(options)
