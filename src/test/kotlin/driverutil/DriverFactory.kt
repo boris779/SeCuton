@@ -32,16 +32,18 @@ import java.util.concurrent.TimeUnit
 
 object DriverFactory {
 
-    val browser: WebDriver
-        get() {
+    fun createWebDriver(scenarioId: String): WebDriver {
 
             val webDriver: WebDriver
             val browserName = System.getProperty("browser", DriverType.CHROME.toString()).toUpperCase()
             val remoteTestingServer = System.getProperty("selenium.grid", "http://localhost:4444")
             val driverType = DriverType.valueOf(browserName)
+            val driverVersion = System.getProperty("driver.version")
+            val emulatedDevice = System.getProperty("emulated.device", "Pixel 2")
             val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1920"))
             val videoRecording = System.getProperty("videoRecording", "no")
             val screenSize = screenResolution.resolution;
+            val executionTag = System.getProperty("executionTag", "executionTag_not_set")
 
             val testId = "Test_" + LocalDateTime.now()
 

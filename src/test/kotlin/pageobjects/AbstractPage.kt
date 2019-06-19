@@ -13,12 +13,13 @@ import java.util.concurrent.TimeUnit
 open class AbstractPage(driver: WebDriver) {
 
     protected var webDriver: WebDriver
+        //get() = session.webDriver
     private var initialized = false
     protected lateinit var baseUrl: String
 
     init {
         if (initialized) {
-            this.webDriver = DriverFactory.browser
+            this.webDriver = DriverFactory.createWebDriver("dummy")
             this.webDriver.manage().timeouts().setScriptTimeout(5, TimeUnit.SECONDS)
             PageFactory.initElements(webDriver, this)
 
@@ -36,26 +37,4 @@ open class AbstractPage(driver: WebDriver) {
         }
     }
 
-/*
-    protected fun fillInputfieldWithId(domId: String, value: String) {
-        var element: WebElement = webDriver.findElement(By.cssSelector("label[id=" + domId + "-label-id]"))
-
-        element.click()
-        element = webDriver.findElement(By.cssSelector("input[id=" + domId + "]"))
-        element.sendKeys(value)
-        element.sendKeys(Keys.TAB)
-    }
-
-    protected fun selectCheckbox(domId: String, value: Boolean) {
-        val element: WebElement = webDriver.findElement(By.id(domId))
-        if (value != webDriver.findElement(By.id(domId)).isSelected()) {
-            val actions = Actions(webDriver);
-
-            actions.moveToElement(webDriver.findElement(By.id(domId))).click().perform();
-        }
-        element.sendKeys(Keys.TAB)
-    }
-
-
-    */
 }

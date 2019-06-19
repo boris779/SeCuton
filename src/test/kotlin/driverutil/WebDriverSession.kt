@@ -10,7 +10,7 @@ class WebDriverSession(val testId: String) {
 
     var currentPage: AbstractPage? = null
     var lastPage: AbstractPage? = null
-    val webDriver: WebDriver by lazy { DriverFactory.browser }
+    val webDriver: WebDriver by lazy { DriverFactory.createWebDriver(testId) }
     val baseUrl: String by lazy {
         if (System.getProperty("baseUrl").isBlank()) {
             fail("No BaseUrl is defined, do not know where to run the tests. Use '-DbaseUrl' to add the url where testenvironment is running ")
