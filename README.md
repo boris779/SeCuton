@@ -18,6 +18,14 @@ Example runtime parameters:
     -Dbrowser.version=74.0
     -DbaseUrl="http://peso.inso.tuwien.ac.at"
     -Ddriver.version=74
+    
+## screen
+
+If you have a multiple monitor system and want to have the browser window on a dedicated screen just use the screen parameter: 
+      
+      -Dscreen=:0.0
+
+Depending on your os the iDstring is different for your screens. GraphicsEnvironment Package is used. Use -DprintScreens=yes to get a list in log for next execution
 
 # Run tests with a grid or selenoid
 

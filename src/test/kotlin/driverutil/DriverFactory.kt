@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit
 
 object DriverFactory {
 
-    val log by logger()
+    private val log by logger()
 
     fun createWebDriver(scenarioId: String): WebDriver {
 
@@ -44,7 +44,7 @@ object DriverFactory {
         val driverType = DriverType.valueOf(browserName)
         val driverVersion = System.getProperty("driver.version")
         val emulatedDevice = System.getProperty("emulated.device", "Pixel 2")
-        val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1920"))
+        val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1440"))
         val videoRecording = System.getProperty("videoRecording", "no")
         val screenSize = screenResolution.resolution;
         val executionTag = System.getProperty("executionTag", "executionTag_not_set")
@@ -184,10 +184,10 @@ object DriverFactory {
 
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS)
 
-        var topLeft: Point = Point(0, 0)
+        var topLeft = Point(0, 0)
 
         try {
-            if (!java.awt.GraphicsEnvironment.isHeadless()) {
+            if (!GraphicsEnvironment.isHeadless()) {
                 val graphicsDevice = getGraphicsDevice()
                 topLeft = getTopLeftScreenPosition(graphicsDevice)
             }
@@ -206,6 +206,14 @@ object DriverFactory {
     private fun getGraphicsDevice(): GraphicsDevice {
         val SCREEN_SYSTEM_PROPERTY = "screen"
         val prefscreen = System.getProperty(SCREEN_SYSTEM_PROPERTY)
+
+        if (System.getProperty("printScreens", "no").equals("yes")) {
+            log.debug("#######################################")
+            log.debug("Your screen id's: ")
+            GraphicsEnvironment.getLocalGraphicsEnvironment().screenDevices.forEach { log.debug(it.iDstring)}
+            log.debug("#######################################")
+        }
+
 
         if (StringUtils.isNoneBlank(prefscreen)) {
             val gdc = GraphicsEnvironment.getLocalGraphicsEnvironment().screenDevices
