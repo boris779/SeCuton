@@ -11,7 +11,8 @@ enum class DriverType {
     REMOTE_ANDROID,
     ANDROID_DEVICE,
     REMOTE_CHROME_MOBILE,
-    REMOTE_CHROME_MOBILE_EMULATION
+    REMOTE_CHROME_MOBILE_EMULATION,
+    CHROME_MOBILE_EMULATION
 }
 
 enum class ScreenResolutions (val resolution : String, val  width: Int, val height: Int) {

@@ -4,8 +4,10 @@ import assertk.fail
 import cucumber.api.Scenario
 import cucumber.runtime.step_definitions.TestDataContainer
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.remote.RemoteWebDriver
 import pageobjects.AbstractPage
 import pageobjects.PageUrls
+import java.rmi.Remote
 import kotlin.reflect.KClass
 import kotlin.reflect.full.primaryConstructor
 
@@ -19,6 +21,11 @@ class WebDriverSession(val testId: String) {
             fail("No BaseUrl is defined, do not know where to run the tests. Use '-DbaseUrl' to add the url where testenvironment is running ")
         }
         System.getProperty("baseUrl")
+    }
+    //val isMobile : Boolean by lazy { (webDriver as RemoteWebDriver).capabilities. }
+
+    fun isMobile(): Boolean {
+        return (webDriver as RemoteWebDriver).isMobile()
     }
 
     fun close() {

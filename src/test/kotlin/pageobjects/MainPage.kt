@@ -10,6 +10,14 @@ open class MainPage(session: WebDriverSession) : AbstractPage(session) {
     }
 
     fun clickMenuEntry(menustring: String): MainPage {
+
+        if (session.isMobile()) {
+            val hamburger = webDriver.findElement(By.cssSelector("a.navbar-toggle"))
+            if (hamburger.getAttribute("aria-expanded").equals("false")) {
+                hamburger.click()
+            }
+        }
+
         val link = webDriver.findElement(By.linkText(menustring))
 
         link.click()

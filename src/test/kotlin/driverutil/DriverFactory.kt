@@ -121,6 +121,25 @@ object DriverFactory {
 
             }
 
+            DriverType.CHROME_MOBILE_EMULATION -> {
+
+                WebDriverManager.chromedriver().version(driverVersion).setup()
+
+                val capabilities = DesiredCapabilities()
+                capabilities.browserName = "chrome"
+                capabilities.version = browserVersion
+
+                val chromeOptions = ChromeOptions();
+                chromeOptions.merge(capabilities)
+
+                val mobileEmulation = HashMap<String, String>();
+                mobileEmulation["deviceName"] = emulatedDevice
+                chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
+
+
+                webDriver = ChromeDriver(chromeOptions)
+            }
+
             DriverType.REMOTE_CHROME_MOBILE_EMULATION -> {
 
                 val capabilities = DesiredCapabilities()

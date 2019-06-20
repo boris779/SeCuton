@@ -27,7 +27,7 @@ open class AbstractStepDefs(protected val testDataContainer: TestDataContainer) 
             }
 
             if (webDriverSession.webDriver is ChromeDriver) {
-                testDataContainer.setTestData("mobileEmulation", (webDriverSession.webDriver as ChromeDriver).capabilities.getCapability("mobileEmulationEnabled"))
+                testDataContainer.setTestData("mobileEmulation", System.getProperty("browser").contains("emulation"))
             }
 
             testDataContainer.setTestData("initialized", true)

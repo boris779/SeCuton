@@ -1,5 +1,6 @@
 package driverutil
 
+import org.openqa.selenium.remote.RemoteWebDriver
 import java.security.MessageDigest
 
 fun String.md5(): String {
@@ -18,4 +19,29 @@ fun String.toBoolean(): Boolean {
         else -> return false
     }
     return result
+}
+
+fun RemoteWebDriver.isMobile(): Boolean {
+
+    val caps = this.capabilities
+
+    if (caps.version.contains("mobile")) {
+        return true
+    }
+
+    if (caps.browserName.contains("mobile")) {
+        return true
+    }
+
+    if (caps.capabilityNames.contains("mobileEmulationEnabled")) {
+        if (caps.getCapability("mobileEmulationEnabled") as Boolean) {
+            return true
+        }
+    }
+
+    if (System.getProperty("browser").contains("emulation")) {
+        return true
+    }
+
+    return false
 }
