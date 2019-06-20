@@ -40,3 +40,5 @@ scenarios have a unique ID. The ID is not checked anywhere, it is selforganzing,
 
 
 //TODO add here screenshots from jenkins and IntelliJ Runner
+
+![testresults from IntelliJ](images/testresults_idea.png)
