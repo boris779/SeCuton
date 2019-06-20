@@ -1,5 +1,5 @@
 
-  Feature: Example Feature
+  Feature: [peso] Example Feature
 
     Background:
       Given the Startpage is loaded
