@@ -5,8 +5,10 @@ import cucumber.api.java.After
 import cucumber.api.java.Before
 import driverutil.WebDriverSessionStore
 import logger
+import org.apache.commons.io.FileUtils
 import org.openqa.selenium.OutputType
 import org.openqa.selenium.TakesScreenshot
+import java.io.File
 
 
 class Hooks(private val testDataContainer: TestDataContainer) {
@@ -36,6 +38,9 @@ class Hooks(private val testDataContainer: TestDataContainer) {
             log.debug("# WORKSPACE: " + System.getenv("WORKSPACE"))
             log.debug("# NODE_NAME: " + System.getenv("NODE_NAME"))
             log.debug("##################################################################")
+            testDataContainer.setTestData("localRun", false)
+        } else {
+            testDataContainer.setTestData("localRun", true)
         }
 
         log.debug("####################################")
@@ -52,7 +57,13 @@ class Hooks(private val testDataContainer: TestDataContainer) {
         try {
             if (scenario.isFailed) {
                 if (webDriverSession.currentPage != null) {
-                    scenario.embed((webDriverSession.webDriver as TakesScreenshot).getScreenshotAs(OutputType.BYTES), "image/png")
+
+                    if (testDataContainer.isLocalRun()) {
+                        val screenshot = (webDriverSession.webDriver as TakesScreenshot).getScreenshotAs(OutputType.FILE)
+                        FileUtils.copyFile(screenshot, File(System.getProperty("user.dir") + "/target/error_selenium.png"))
+                    } else {
+                        scenario.embed((webDriverSession.webDriver as TakesScreenshot).getScreenshotAs(OutputType.BYTES), "image/png")
+                    }
                 }
             }
         } finally {

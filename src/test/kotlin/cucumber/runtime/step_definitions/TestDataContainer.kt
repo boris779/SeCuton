@@ -62,4 +62,8 @@ class TestDataContainer {
         return true
     }
 
+    fun isLocalRun(): Boolean {
+        return (testDataMap.get("localRun") as Boolean)
+    }
+
 }
