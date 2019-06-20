@@ -22,7 +22,8 @@ Example runtime parameters:
 
 
 
-# scenario id's
+# scenarios
+## feature file structure
 To find scenarios faster (especially if the fail) I used a template for scenarios:
 
     Feature: [peso] Example Feature
