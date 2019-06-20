@@ -60,7 +60,7 @@ class WebDriverSession(val testId: String) {
         if (primaryConstructor == null || primaryConstructor.parameters.size != 1 || primaryConstructor.parameters[0].type.classifier != WebDriverSession::class) {
             fail("invalid primary constructor of page object")
         }
-        return primaryConstructor!!.call(this)
+        return primaryConstructor.call(this)
 
     }
 

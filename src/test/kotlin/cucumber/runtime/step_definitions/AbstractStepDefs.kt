@@ -39,6 +39,7 @@ open class AbstractStepDefs(protected val testDataContainer: TestDataContainer) 
         return getWebDriverSession().webDriver
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <T : AbstractPage> getPage(pageClass: KClass<T>): T {
         val page = getWebDriverSession().currentPage
 
@@ -65,6 +66,5 @@ fun extractTestIdFromScenarioName(scenarioName: String): String {
     } catch (e: NullPointerException) {
         fail("Scenarioname is not correct formated $scenarioName. Pattern: '[XXX-99 [Filename]")
     }
-    return (scenarioName)
 }
 
