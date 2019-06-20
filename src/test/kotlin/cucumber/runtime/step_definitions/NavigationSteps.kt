@@ -5,6 +5,7 @@ import cucumber.api.java.Before
 import cucumber.api.java.de.Angenommen
 import cucumber.api.java.de.Wenn
 import cucumber.api.java.en.Given
+import cucumber.api.java.en.When
 import pageobjects.MainPage
 import pageobjects.PageUrls
 
@@ -16,5 +17,11 @@ class NavigationSteps(testDataContainer: TestDataContainer) : AbstractStepDefs(t
         getWebDriverSession().gotoUrl(PageUrls.HOME, MainPage::class, testDataContainer)
     }
 
+
+
+    @When("the Teamsite will be opened")
+    fun teamsite_open() {
+        getPage(MainPage::class).clickMenuEntry("Team")
+    }
 
 }
