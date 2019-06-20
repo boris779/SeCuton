@@ -112,7 +112,8 @@ object DriverFactory {
 
                 val chromeOptions = ChromeOptions()
                 chromeOptions.merge(capabilities)
-                chromeOptions.setCapability("enableVNC", true)
+                //BUG in Android selenoid Image, 20.06.2019
+                //chromeOptions.setCapability("enableVNC", true)
                 chromeOptions.setCapability("sessionTimeout", "15m")
 
                 webDriver = RemoteWebDriver(URI.create(remoteTestingServer + "/wd/hub").toURL(), chromeOptions)
