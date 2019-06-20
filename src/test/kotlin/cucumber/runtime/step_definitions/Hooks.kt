@@ -60,7 +60,7 @@ class Hooks(private val testDataContainer: TestDataContainer) {
 
                     if (testDataContainer.isLocalRun()) {
                         val screenshot = (webDriverSession.webDriver as TakesScreenshot).getScreenshotAs(OutputType.FILE)
-                        FileUtils.copyFile(screenshot, File(System.getProperty("user.dir") + "/target/error_selenium.png"))
+                        FileUtils.copyFile(screenshot, File(System.getProperty("user.dir") + "/target/error_selenium_$testId.png"))
                     } else {
                         scenario.embed((webDriverSession.webDriver as TakesScreenshot).getScreenshotAs(OutputType.BYTES), "image/png")
                     }
