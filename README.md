@@ -19,6 +19,9 @@ Example runtime parameters:
     -DbaseUrl="http://peso.inso.tuwien.ac.at"
     -Ddriver.version=74
 
+# Run tests with a grid or selenoid
+
+    -Dselenium.grid=http://<ip-of-your-grid:4444>
 
 
 
