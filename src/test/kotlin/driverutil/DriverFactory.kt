@@ -198,7 +198,7 @@ object DriverFactory {
                 capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Appium_Android_Device")
                 capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator1")
                 capabilities.setCapability("browserName", "chrome")
-                capabilities.setCapability(MobileCapabilityType.UDID, System.getProperty("device.id", "emulator-5554"))//"e41f0310"))//"DEFAULT_ANDROID_DEVICE_ID"))
+                capabilities.setCapability(MobileCapabilityType.UDID, System.getProperty("device.id", "emulator-5554"))
 
                 capabilities.setCapability("noReset", true)
 
