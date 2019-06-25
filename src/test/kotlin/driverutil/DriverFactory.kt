@@ -186,16 +186,21 @@ object DriverFactory {
                 webDriver = RemoteWebDriver(URI.create(remoteTestingServer + "/wd/hub").toURL(), capabilities)
             }
             DriverType.ANDROID_DEVICE -> {
+
+                WebDriverManager.chromedriver().version(driverVersion).setup()
+
+                val path2chromeDriver = WebDriverManager.chromedriver().binaryPath.substringBeforeLast(File.separator)
+
                 val capabilities = DesiredCapabilities()
-
-                capabilities.setCapability(MobileCapabilityType.APPIUM_VERSION, "1.7.1")
+                capabilities.setCapability("chromedriverExecutableDir", path2chromeDriver)
+                capabilities.setCapability(MobileCapabilityType.APPIUM_VERSION, "1.13")
                 capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android")
-                capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Remote_Android_Device")
+                capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Appium_Android_Device")
+                capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator1")
+                capabilities.setCapability("browserName", "chrome")
+                capabilities.setCapability(MobileCapabilityType.UDID, System.getProperty("device.id", "emulator-5554"))//"e41f0310"))//"DEFAULT_ANDROID_DEVICE_ID"))
 
-                capabilities.setCapability("browserName", "Chrome")
-                capabilities.setCapability(MobileCapabilityType.UDID, System.getProperty("device.id", "e41f0310"))//"DEFAULT_ANDROID_DEVICE_ID"))
-
-                capabilities.setCapability("noReset", "true")
+                capabilities.setCapability("noReset", true)
 
                 val appiumServer = URL(remoteTestingServer + "/wd/hub")
                 webDriver = AndroidDriver<AndroidElement>(appiumServer, capabilities)
@@ -204,20 +209,25 @@ object DriverFactory {
 
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS)
 
-        var topLeft = Point(0, 0)
 
-        try {
-            if (!GraphicsEnvironment.isHeadless()) {
-                val graphicsDevice = getGraphicsDevice()
-                topLeft = getTopLeftScreenPosition(graphicsDevice)
+        if (driverType != DriverType.ANDROID_DEVICE) {
+
+            var topLeft = Point(0, 0)
+
+            try {
+                if (!GraphicsEnvironment.isHeadless()) {
+                    val graphicsDevice = getGraphicsDevice()
+                    topLeft = getTopLeftScreenPosition(graphicsDevice)
+                }
+            } catch (e: NoClassDefFoundError) {
+                log.debug("Graphics settings not initialized!" + e)
+            } catch (e: RuntimeException) {
+                log.debug("Graphics settings not initialized!" + e)
             }
-        } catch (e: NoClassDefFoundError) {
-            log.debug("Graphics settings not initialized!" + e)
-        } catch (e: RuntimeException) {
-            log.debug("Graphics settings not initialized!" + e)
-        }
 
-        webDriver.manage().window().position.moveBy(topLeft.x, topLeft.y)
+            webDriver.manage().window().position.moveBy(topLeft.x, topLeft.y)
+
+        }
 
         return webDriver
     }
