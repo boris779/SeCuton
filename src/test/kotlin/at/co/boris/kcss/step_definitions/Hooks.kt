@@ -1,19 +1,22 @@
-package cucumber.runtime.step_definitions
+package at.co.boris.kcss.step_definitions
 
 import cucumber.api.Scenario
 import cucumber.api.java.After
 import cucumber.api.java.Before
-import driverutil.WebDriverSessionStore
+import at.co.boris.kcss.driverutil.WebDriverSessionStore
+import at.co.boris.kcss.driverutil.isMobile
+import io.appium.java_client.android.AndroidDriver
 import logger
 import org.apache.commons.io.FileUtils
 import org.openqa.selenium.OutputType
 import org.openqa.selenium.TakesScreenshot
+import org.openqa.selenium.remote.RemoteWebDriver
 import java.io.File
 
 
 class Hooks(private val testDataContainer: TestDataContainer) {
 
-    val log by logger()
+    private val log by logger()
 
     @Before
     fun beforeScrenario(scenario: Scenario) {
@@ -48,26 +51,39 @@ class Hooks(private val testDataContainer: TestDataContainer) {
         log.debug("####################################")
     }
 
-
     @After
     fun afterScenario(scenario: Scenario) {
         val testId = extractTestIdFromScenarioName(scenario.name)
+        //FIXME wenn die Session nicht existiert, wird hier eine erstellt, das sollte aber nicht gemacht werden!
         val webDriverSession = WebDriverSessionStore.get(testId)
 
-        try {
-            if (scenario.isFailed) {
-                if (webDriverSession.currentPage != null) {
+        if (!scenario.isFailed) {
+            return
+        }
 
-                    if (testDataContainer.isLocalRun()) {
-                        val screenshot = (webDriverSession.webDriver as TakesScreenshot).getScreenshotAs(OutputType.FILE)
-                        FileUtils.copyFile(screenshot, File(System.getProperty("user.dir") + "/target/error_selenium_$testId.png"))
-                    } else {
-                        scenario.embed((webDriverSession.webDriver as TakesScreenshot).getScreenshotAs(OutputType.BYTES), "image/png")
-                    }
+
+        if (webDriverSession.currentPage != null) {
+            try {
+                val isMobile = (webDriverSession.webDriver as RemoteWebDriver).isMobile()
+                scenario.write("isMobile active for used webdriver: $isMobile")
+
+                if (isMobile) {
+                    val currentContext = (webDriverSession.webDriver as AndroidDriver<*>).context
+                    (webDriverSession.webDriver as AndroidDriver<*>).context("NATIVE_APP")
+                    scenario.embed((webDriverSession.webDriver as TakesScreenshot).getScreenshotAs(OutputType.BYTES), "image/png")
+                    (webDriverSession.webDriver as AndroidDriver<*>).context(currentContext)
                 }
+
+                if (testDataContainer.isLocalRun()) {
+                    val screenshot = (webDriverSession.webDriver as TakesScreenshot).getScreenshotAs(OutputType.FILE)
+                    FileUtils.copyFile(screenshot, File(System.getProperty("user.dir") + "/target/error_selenium_$testId.png"))
+                } else {
+                    scenario.embed((webDriverSession.webDriver as TakesScreenshot).getScreenshotAs(OutputType.BYTES), "image/png")
+                }
+
+            } finally {
+                WebDriverSessionStore.remove(testId)
             }
-        } finally {
-            WebDriverSessionStore.remove(testId)
         }
     }
 }

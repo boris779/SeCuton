@@ -1,4 +1,4 @@
-package pageobjects
+package at.co.boris.kcss.pageobjects
 
 enum class PageUrls(val subUrl: String) {
     HOME("/"),

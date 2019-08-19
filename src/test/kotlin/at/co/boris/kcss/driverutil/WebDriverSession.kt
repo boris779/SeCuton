@@ -1,22 +1,20 @@
-package driverutil
+package at.co.boris.kcss.driverutil
 
 import assertk.fail
-import cucumber.api.Scenario
-import cucumber.runtime.step_definitions.TestDataContainer
+import at.co.boris.kcss.pageobjects.AbstractPage
+import at.co.boris.kcss.pageobjects.PageUrls
+import at.co.boris.kcss.step_definitions.TestDataContainer
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.remote.RemoteWebDriver
-import pageobjects.AbstractPage
-import pageobjects.PageUrls
-import java.rmi.Remote
 import kotlin.reflect.KClass
 import kotlin.reflect.full.primaryConstructor
 
-class WebDriverSession(val testId: String) {
+class WebDriverSession(private val testId: String) {
 
     var currentPage: AbstractPage? = null
-    var lastPage: AbstractPage? = null
+    private var lastPage: AbstractPage? = null
     val webDriver: WebDriver by lazy { DriverFactory.createWebDriver(testId) }
-    val baseUrl: String by lazy {
+    private val baseUrl: String by lazy {
         if (System.getProperty("baseUrl").isBlank()) {
             fail("No BaseUrl is defined, do not know where to run the tests. Use '-DbaseUrl' to add the url where testenvironment is running ")
         }
@@ -34,7 +32,7 @@ class WebDriverSession(val testId: String) {
     }
 
     private fun getDomainFromBaseUrl(): String {
-        return "^http[s]?:\\/\\/([^:\\/]*)".toRegex().find(baseUrl)!!.groups.get(1)!!.value
+        return "^http[s]?://([^:/]*)".toRegex().find(baseUrl)!!.groups.get(1)!!.value
     }
 
 
@@ -44,11 +42,11 @@ class WebDriverSession(val testId: String) {
 
         val fullUrl = baseUrl + subUrl.subUrl
         webDriver.get(fullUrl)
-        scenario.write("URL used: " + fullUrl)
+        scenario.write("URL used: $fullUrl")
         openPage(subUrl, pageClass)
     }
 
-    fun <T : AbstractPage> openPage(subUrl: PageUrls, pageClass: KClass<T>): T {
+    private fun <T : AbstractPage> openPage(subUrl: PageUrls, pageClass: KClass<T>): T {
 
         val fullUrl = baseUrl + subUrl.subUrl
         webDriver.get(fullUrl)

@@ -1,6 +1,6 @@
-package pageobjects
+package at.co.boris.kcss.pageobjects
 
-import driverutil.WebDriverSession
+import at.co.boris.kcss.driverutil.WebDriverSession
 import org.openqa.selenium.By
 
 class TeamPage(session: WebDriverSession) : MainPage(session) {

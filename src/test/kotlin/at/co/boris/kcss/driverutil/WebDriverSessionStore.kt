@@ -1,4 +1,4 @@
-package driverutil
+package at.co.boris.kcss.driverutil
 
 object WebDriverSessionStore {
 
@@ -11,7 +11,7 @@ object WebDriverSessionStore {
             store[sessionName] = WebDriverSession(sessionName)
         }
 
-        return store.get(sessionName)!!
+        return store[sessionName]!!
     }
 
     fun remove(sessionName: String) {

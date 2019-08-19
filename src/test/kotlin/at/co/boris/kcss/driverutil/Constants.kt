@@ -1,4 +1,4 @@
-package driverutil
+package at.co.boris.kcss.driverutil
 
 enum class DriverType {
     CHROME,

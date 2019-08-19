@@ -1,4 +1,4 @@
-package driverutil
+package at.co.boris.kcss.driverutil
 
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.security.MessageDigest
@@ -13,12 +13,11 @@ fun String.md5(): String {
 
 
 fun String.toBoolean(): Boolean {
-    val result = when (this.toLowerCase()) {
+    return when (toLowerCase()) {
         "true", "ja", "yes" -> true
         "false", "nein", "no" -> false
         else -> return false
     }
-    return result
 }
 
 fun RemoteWebDriver.isMobile(): Boolean {

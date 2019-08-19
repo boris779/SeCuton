@@ -1,25 +1,21 @@
-package cucumber.runtime.step_definitions
+package at.co.boris.kcss.step_definitions
 
-import cucumber.api.Scenario
-import cucumber.api.java.Before
-import cucumber.api.java.de.Angenommen
-import cucumber.api.java.de.Wenn
+import at.co.boris.kcss.pageobjects.MainPage
+import at.co.boris.kcss.pageobjects.PageUrls
 import cucumber.api.java.en.Given
 import cucumber.api.java.en.When
-import pageobjects.MainPage
-import pageobjects.PageUrls
 
 
 class NavigationSteps(testDataContainer: TestDataContainer) : AbstractStepDefs(testDataContainer) {
 
-    @Given("the Startpage is loaded")
+    @Given("the startpage is loaded")
     fun the_Startpage_is_loaded() {
         getWebDriverSession().gotoUrl(PageUrls.HOME, MainPage::class, testDataContainer)
     }
 
 
 
-    @When("the Teamsite will be opened")
+    @When("the Teamsite is opened")
     fun teamsite_open() {
         getPage(MainPage::class).clickMenuEntry("Team")
     }

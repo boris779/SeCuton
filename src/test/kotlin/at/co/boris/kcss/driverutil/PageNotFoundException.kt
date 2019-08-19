@@ -1,10 +1,10 @@
-package driverutil
+package at.co.boris.kcss.driverutil
 
 import logger
 
 class PageNotFoundException(s: String) : Throwable() {
 
-    val log by logger()
+    private val log by logger()
 
     init {
         log.error(s)

@@ -1,6 +1,6 @@
-package pageobjects
+package at.co.boris.kcss.pageobjects
 
-import driverutil.WebDriverSession
+import at.co.boris.kcss.driverutil.WebDriverSession
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 
@@ -13,7 +13,7 @@ open class MainPage(session: WebDriverSession) : AbstractPage(session) {
 
         if (session.isMobile()) {
             val hamburger = webDriver.findElement(By.cssSelector("a.navbar-toggle"))
-            if (hamburger.getAttribute("aria-expanded").equals("false")) {
+            if (hamburger.getAttribute("aria-expanded") == "false") {
                 hamburger.click()
             }
         }

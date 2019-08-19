@@ -1,16 +1,11 @@
-package driverutil
+package at.co.boris.kcss.driverutil
 
 import io.appium.java_client.android.AndroidDriver
 import io.appium.java_client.android.AndroidElement
-import io.appium.java_client.ios.IOSDriver
-import io.appium.java_client.remote.AutomationName
-import io.appium.java_client.remote.IOSMobileCapabilityType
 import io.appium.java_client.remote.MobileCapabilityType
-import io.appium.java_client.remote.MobilePlatform
 import io.github.bonigarcia.wdm.WebDriverManager
 import logger
 import org.apache.commons.lang3.StringUtils
-import org.openqa.selenium.*
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.Point
 import org.openqa.selenium.WebDriver
@@ -46,7 +41,7 @@ object DriverFactory {
         val emulatedDevice = System.getProperty("emulated.device", "Pixel 2")
         val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1440"))
         val videoRecording = System.getProperty("videoRecording", "no")
-        val screenSize = screenResolution.resolution;
+        val screenSize = screenResolution.resolution
         val executionTag = System.getProperty("executionTag", "executionTag_not_set")
 
         val testId = "Test_" + LocalDateTime.now()
@@ -93,7 +88,7 @@ object DriverFactory {
                 if (videoRecording.toBoolean()) {
                     options.setCapability("enableVNC", true)
                     options.setCapability("enableVideo", false)
-                    options.setCapability("videoName", testId + ".mp4")
+                    options.setCapability("videoName", "$testId.mp4")
                 }
 
                 options.setCapability("screenResolution", screenSize)
@@ -101,7 +96,7 @@ object DriverFactory {
 
                 options.setCapability("name", executionTag)
 
-                webDriver = RemoteWebDriver(URI.create(remoteTestingServer + "/wd/hub").toURL(), options)
+                webDriver = RemoteWebDriver(URI.create("$remoteTestingServer/wd/hub").toURL(), options)
                 webDriver.manage().window().maximize()
             }
 
@@ -116,7 +111,7 @@ object DriverFactory {
                 //chromeOptions.setCapability("enableVNC", true)
                 chromeOptions.setCapability("sessionTimeout", "15m")
 
-                webDriver = RemoteWebDriver(URI.create(remoteTestingServer + "/wd/hub").toURL(), chromeOptions)
+                webDriver = RemoteWebDriver(URI.create("$remoteTestingServer/wd/hub").toURL(), chromeOptions)
 
 
             }
@@ -129,12 +124,12 @@ object DriverFactory {
                 capabilities.browserName = "chrome"
                 capabilities.version = browserVersion
 
-                val chromeOptions = ChromeOptions();
+                val chromeOptions = ChromeOptions()
                 chromeOptions.merge(capabilities)
 
-                val mobileEmulation = HashMap<String, String>();
+                val mobileEmulation = HashMap<String, String>()
                 mobileEmulation["deviceName"] = emulatedDevice
-                chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
+                chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation)
 
 
                 webDriver = ChromeDriver(chromeOptions)
@@ -146,16 +141,16 @@ object DriverFactory {
                 capabilities.browserName = "chrome"
                 capabilities.version = browserVersion
 
-                val chromeOptions = ChromeOptions();
+                val chromeOptions = ChromeOptions()
                 chromeOptions.merge(capabilities)
                 chromeOptions.setCapability("enableVNC", true)
                 chromeOptions.setCapability("name", executionTag)
 
-                val mobileEmulation = HashMap<String, String>();
+                val mobileEmulation = HashMap<String, String>()
                 mobileEmulation["deviceName"] = emulatedDevice
-                chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
+                chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation)
 
-                webDriver = RemoteWebDriver(URI.create(remoteTestingServer + "/wd/hub").toURL(), chromeOptions)
+                webDriver = RemoteWebDriver(URI.create("$remoteTestingServer/wd/hub").toURL(), chromeOptions)
 
 
             }
@@ -171,7 +166,7 @@ object DriverFactory {
                 val options = FirefoxOptions()
                 options.merge(capabilities)
 
-                webDriver = RemoteWebDriver(URI.create(remoteTestingServer + "/wd/hub").toURL(), options)
+                webDriver = RemoteWebDriver(URI.create("$remoteTestingServer/wd/hub").toURL(), options)
                 webDriver.manage().window().maximize()
             }
             DriverType.REMOTE_ANDROID -> {
@@ -183,7 +178,7 @@ object DriverFactory {
                 capabilities.setCapability("screenResolution", screenSize)
                 capabilities.setCapability("sessionTimeout", "15m")
 
-                webDriver = RemoteWebDriver(URI.create(remoteTestingServer + "/wd/hub").toURL(), capabilities)
+                webDriver = RemoteWebDriver(URI.create("$remoteTestingServer/wd/hub").toURL(), capabilities)
             }
             DriverType.ANDROID_DEVICE -> {
 
@@ -202,7 +197,7 @@ object DriverFactory {
 
                 capabilities.setCapability("noReset", true)
 
-                val appiumServer = URL(remoteTestingServer + "/wd/hub")
+                val appiumServer = URL("$remoteTestingServer/wd/hub")
                 webDriver = AndroidDriver<AndroidElement>(appiumServer, capabilities)
             }
         }
@@ -220,9 +215,9 @@ object DriverFactory {
                     topLeft = getTopLeftScreenPosition(graphicsDevice)
                 }
             } catch (e: NoClassDefFoundError) {
-                log.debug("Graphics settings not initialized!" + e)
+                log.debug("Graphics settings not initialized! $e")
             } catch (e: RuntimeException) {
-                log.debug("Graphics settings not initialized!" + e)
+                log.debug("Graphics settings not initialized! $e")
             }
 
             webDriver.manage().window().position.moveBy(topLeft.x, topLeft.y)
@@ -234,10 +229,10 @@ object DriverFactory {
 
 
     private fun getGraphicsDevice(): GraphicsDevice {
-        val SCREEN_SYSTEM_PROPERTY = "screen"
-        val prefscreen = System.getProperty(SCREEN_SYSTEM_PROPERTY)
+        val screenSystemProperty = "screen"
+        val prefscreen = System.getProperty(screenSystemProperty)
 
-        if (System.getProperty("printScreens", "no").equals("yes")) {
+        if (System.getProperty("printScreens", "no") == "yes") {
             log.debug("#######################################")
             log.debug("Your screen id's: ")
             GraphicsEnvironment.getLocalGraphicsEnvironment().screenDevices.forEach { log.debug(it.iDstring)}

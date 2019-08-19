@@ -1,20 +1,20 @@
-package cucumber.runtime.step_definitions
+package at.co.boris.kcss.step_definitions
 
 import assertk.fail
 import cucumber.api.java8.En
-import driverutil.PageNotFoundException
-import driverutil.WebDriverSession
-import driverutil.WebDriverSessionStore
+import at.co.boris.kcss.driverutil.PageNotFoundException
+import at.co.boris.kcss.driverutil.WebDriverSession
+import at.co.boris.kcss.driverutil.WebDriverSessionStore
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.remote.RemoteWebDriver
-import pageobjects.AbstractPage
+import at.co.boris.kcss.pageobjects.AbstractPage
 import kotlin.reflect.KClass
 import logger
 
 open class AbstractStepDefs(protected val testDataContainer: TestDataContainer) : En {
 
-    val log by logger()
+    private val log by logger()
 
     fun getWebDriverSession(): WebDriverSession {
 
@@ -62,7 +62,7 @@ open class AbstractStepDefs(protected val testDataContainer: TestDataContainer) 
 fun extractTestIdFromScenarioName(scenarioName: String): String {
     val regex = "^\\[(.*) \\[.*\$".toRegex()
     try {
-        return regex.find(scenarioName)!!.groups.get(1)!!.value
+        return regex.find(scenarioName)!!.groups[1]!!.value
     } catch (e: NullPointerException) {
         fail("Scenarioname is not correct formated $scenarioName. Pattern: '[XXX-99 [Filename]")
     }
