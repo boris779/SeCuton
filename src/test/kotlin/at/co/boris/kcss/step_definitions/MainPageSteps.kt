@@ -3,8 +3,8 @@ package at.co.boris.kcss.step_definitions
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isGreaterThan
-import cucumber.api.java.en.Then
 import at.co.boris.kcss.pageobjects.MainPage
+import io.cucumber.java.en.Then
 
 
 class MainPageSteps(testDataContainer: TestDataContainer) : AbstractStepDefs(testDataContainer) {

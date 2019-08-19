@@ -1,7 +1,6 @@
 package at.co.boris.kcss.step_definitions
 
 import assertk.fail
-import cucumber.api.java8.En
 import at.co.boris.kcss.driverutil.PageNotFoundException
 import at.co.boris.kcss.driverutil.WebDriverSession
 import at.co.boris.kcss.driverutil.WebDriverSessionStore
@@ -9,6 +8,7 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.remote.RemoteWebDriver
 import at.co.boris.kcss.pageobjects.AbstractPage
+import io.cucumber.java8.En
 import kotlin.reflect.KClass
 import logger
 

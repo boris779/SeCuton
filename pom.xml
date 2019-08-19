@@ -13,15 +13,15 @@
   <properties>
     <selenium.version>3.141.59</selenium.version>
     <junit.version>4.12</junit.version>
-    <webdrivermanager.version>3.6.1</webdrivermanager.version>
-    <kotlin.version>1.3.40</kotlin.version>
-    <cucumber.version>4.4.0</cucumber.version>
-    <cucable-plugin.version>1.5.1</cucable-plugin.version>
+    <webdrivermanager.version>3.6.2</webdrivermanager.version>
+    <kotlin.version>1.3.41</kotlin.version>
+    <cucumber.version>4.7.1</cucumber.version>
+    <cucable-plugin.version>1.5.2</cucable-plugin.version>
     <build.helper.plugin.version>3.0.0</build.helper.plugin.version>
     <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
     <maven.failsafe.plugin.version>2.22.1</maven.failsafe.plugin.version>
     <maven.surefire.plugin.version>2.22.1</maven.surefire.plugin.version>
-    <cluecumber.report.version>2.0.1</cluecumber.report.version>
+    <cluecumber.report.version>2.2.0</cluecumber.report.version>
   </properties>
 
   <dependencies>

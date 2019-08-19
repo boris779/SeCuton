@@ -1,6 +1,7 @@
 package at.co.boris.kcss.step_definitions
 
-import cucumber.api.Scenario
+import io.cucumber.core.api.Scenario
+
 
 class TestDataContainer {
     private val testDataMap: MutableMap<String, Any> = mutableMapOf()

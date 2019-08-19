@@ -2,8 +2,8 @@ package at.co.boris.kcss.step_definitions
 
 import at.co.boris.kcss.pageobjects.MainPage
 import at.co.boris.kcss.pageobjects.PageUrls
-import cucumber.api.java.en.Given
-import cucumber.api.java.en.When
+import io.cucumber.java.en.Given
+import io.cucumber.java.en.When
 
 
 class NavigationSteps(testDataContainer: TestDataContainer) : AbstractStepDefs(testDataContainer) {
