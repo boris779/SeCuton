@@ -58,6 +58,7 @@ class Hooks(private val testDataContainer: TestDataContainer) {
         val webDriverSession = WebDriverSessionStore.get(testId)
 
         if (!scenario.isFailed) {
+            WebDriverSessionStore.remove(testId)
             return
         }
 
