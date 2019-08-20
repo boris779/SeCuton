@@ -49,20 +49,10 @@ object DriverFactoryOld {
 
         when (driverType) {
             DriverType.CHROME -> {
-
-                DriverFactory.c
-
-
-                WebDriverManager.chromedriver().version(driverVersion).setup()
-                val options = ChromeOptions()
-
-                webDriver = ChromeDriver(options)
-                webDriver.manage().window().size = Dimension(screenResolution.width, screenResolution.height)
+                webDriver = DriverFactoryChrome().createDriver()
             }
             DriverType.FIREFOX -> {
-                WebDriverManager.firefoxdriver().version(driverVersion).setup()
-                webDriver = FirefoxDriver()
-                webDriver.manage().window().size = Dimension(screenResolution.width, screenResolution.height)
+                webDriver = DriverFactoryFirefox().createDriver()
             }
             DriverType.EDGE -> {
                 WebDriverManager.edgedriver().version(driverVersion).setup()

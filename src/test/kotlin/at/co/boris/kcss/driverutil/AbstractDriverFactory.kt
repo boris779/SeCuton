@@ -5,10 +5,7 @@ import org.openqa.selenium.WebDriver
 
 abstract class DriverFactory {
 
-    abstract fun getDriver(): WebDriver
-
-
-
+    abstract fun createDriver(): WebDriver
 
 
 }

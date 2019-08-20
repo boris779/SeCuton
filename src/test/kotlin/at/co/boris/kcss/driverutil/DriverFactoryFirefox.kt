@@ -5,8 +5,10 @@ import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.firefox.FirefoxDriver
+import org.openqa.selenium.firefox.FirefoxOptions
 
-class DriverFactoryChrome : DriverFactory() {
+class DriverFactoryFirefox : DriverFactory() {
 
    lateinit var webDriver: WebDriver
 
@@ -15,14 +17,14 @@ class DriverFactoryChrome : DriverFactory() {
         val driverVersion = System.getProperty("driver.version")
         val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1440"))
 
-        WebDriverManager.chromedriver().version(driverVersion).setup()
-        val options = ChromeOptions()
+        WebDriverManager.firefoxdriver().version(driverVersion).setup()
+        val options = FirefoxOptions()
 
-        webDriver = ChromeDriver(options)
+
+        webDriver = FirefoxDriver(options)
         webDriver.manage().window().size = Dimension(screenResolution.width, screenResolution.height)
 
         return webDriver
     }
-
 
 }
