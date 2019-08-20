@@ -33,17 +33,16 @@ object DriverFactory {
 
         val webDriver: WebDriver
         val browserName = System.getProperty("browser", DriverType.CHROME.toString()).toUpperCase()
-       // val browserVersion = System.getProperty("browser.version")
-       // val remoteTestingServer = System.getProperty("selenium.grid", "http://localhost:4444")
         val driverType = DriverType.valueOf(browserName)
-       // val driverVersion = System.getProperty("driver.version")
+
         val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1440"))
-        //val videoRecording = System.getProperty("videoRecording", "no")
         val screenSize = screenResolution.resolution
+
+        // val browserVersion = System.getProperty("browser.version")
+        // val remoteTestingServer = System.getProperty("selenium.grid", "http://localhost:4444")
+        // val driverVersion = System.getProperty("driver.version")
+        //val videoRecording = System.getProperty("videoRecording", "no")
         //val executionTag = System.getProperty("executionTag", "executionTag_not_set")
-
-        val testId = "Test_" + LocalDateTime.now()
-
 
         when (driverType) {
             DriverType.CHROME -> {
@@ -52,21 +51,15 @@ object DriverFactory {
             DriverType.FIREFOX -> {
                 webDriver = FirefoxWebDriverFactory().createDriver()
             }
-/*            DriverType.EDGE -> {
-                WebDriverManager.edgedriver().version(driverVersion).setup()
-                webDriver = EdgeDriver()
-                webDriver.manage().window().size = Dimension(screenResolution.width, screenResolution.height)
+            DriverType.EDGE -> {
+                webDriver = EdgeWebDriverFactory().createDriver()
             }
             DriverType.IE -> {
-                WebDriverManager.iedriver().setup()
-                webDriver = InternetExplorerDriver()
-                webDriver.manage().window().size = Dimension(screenResolution.width, screenResolution.height)
+                webDriver = IEWebDriverFactory().createDriver()
             }
             DriverType.OPERA -> {
-                WebDriverManager.operadriver().version(driverVersion).setup()
-                webDriver = OperaDriver()
-                webDriver.manage().window().size = Dimension(screenResolution.width, screenResolution.height)
-            }*/
+                webDriver = OperaWebDriverFactory().createDriver()
+            }
             DriverType.REMOTE_CHROME -> {
                 webDriver = RemoteChromeWebDriverFactory().createDriver()
             }

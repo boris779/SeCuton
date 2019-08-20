@@ -6,25 +6,18 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URI
 
-class RemoteFirefoxWebDriverFactory : WebDriverFactory() {
+class RemoteFirefoxWebDriverFactory : RemoteWebDriverFactory() {
     override fun createDriver(): WebDriver {
-        val capabilities = DesiredCapabilities()
-        capabilities.browserName = "firefox"
-        capabilities.setCapability("enableVNC", true)
-        capabilities.setCapability("enableVideo", false)
-        //capabilities.setCapability("screenResolution", screenSize)
-        capabilities.setCapability("sessionTimeout", "5m")
 
-        val executionTag = System.getProperty("executionTag", "executionTag_not_set")
-        capabilities.setCapability("name", executionTag)
+        caps.browserName = "firefox"
+
+        //caps.setCapability("screenResolution", screenSize)
+
 
         val options = FirefoxOptions()
-        options.merge(capabilities)
+        options.merge(caps)
 
-        val remoteTestingServer= System.getProperty("selenium.grid", "http://localhost:4444")
-
-
-        webDriver = RemoteWebDriver(URI.create("$remoteTestingServer/wd/hub").toURL(), options)
+        webDriver = RemoteWebDriver(URI.create("${getRemoteTestingServer()}/wd/hub").toURL(), options)
         webDriver.manage().window().maximize()
 
         return webDriver
