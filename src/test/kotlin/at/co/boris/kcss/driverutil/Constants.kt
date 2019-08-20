@@ -3,9 +3,9 @@ package at.co.boris.kcss.driverutil
 enum class DriverType {
     CHROME,
     FIREFOX,
- /*   OPERA,
+    OPERA,
     EDGE,
-    IE, */
+    IE,
     REMOTE_CHROME,
     REMOTE_FIREFOX,
 /*    REMOTE_ANDROID,
