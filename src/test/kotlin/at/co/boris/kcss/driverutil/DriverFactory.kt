@@ -26,7 +26,7 @@ import java.net.URL
 import java.time.LocalDateTime
 import java.util.concurrent.TimeUnit
 
-object DriverFactory {
+object DriverFactoryOld {
 
     private val log by logger()
 
@@ -49,6 +49,10 @@ object DriverFactory {
 
         when (driverType) {
             DriverType.CHROME -> {
+
+                DriverFactory.c
+
+
                 WebDriverManager.chromedriver().version(driverVersion).setup()
                 val options = ChromeOptions()
 
