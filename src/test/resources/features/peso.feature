@@ -1,5 +1,4 @@
 
-@boris
 Feature: [peso] Example Feature
 
     Background:

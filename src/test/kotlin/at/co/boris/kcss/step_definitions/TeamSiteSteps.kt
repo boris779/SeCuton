@@ -8,10 +8,10 @@ import io.cucumber.java.en.Then
 
 class TeamSiteSteps(testDataContainer: TestDataContainer) : AbstractStepDefs(testDataContainer) {
 
-
-    @Then("should {string} be part of the Core team")
-    fun should_be_part_of_the_Core_team(name: String) {
-        assertThat(getPage(TeamPage::class).getTeamMembers(), "Searching for $name in Core Team list").contains(name)
+    init {
+        Then("should {string} be part of the Core team") { string: String ->
+            assertThat(getPage(TeamPage::class).getTeamMembers(), "Searching for $string in Core Team list").contains(string)
+        }
     }
 
 }

@@ -9,13 +9,13 @@ import io.cucumber.java.en.Then
 
 class MainPageSteps(testDataContainer: TestDataContainer) : AbstractStepDefs(testDataContainer) {
 
-    @Then("the peso-logo should be displayed")
-    fun the_pesologo_should_be_displayed() {
+    init {
+        Then("the peso-logo should be displayed") {
 
-        val eleLogoList = getPage(MainPage::class).getLogo()
+            val eleLogoList = getPage(MainPage::class).getLogo()
 
-        assertThat(eleLogoList!!.size, "found Logos via css").isGreaterThan(0)
-        assertThat(eleLogoList[0].getAttribute("alt"), "checked the alternative Text from Logo").isEqualTo("PESO - Logo")
-
+            assertThat(eleLogoList!!.size, "found Logos via css").isGreaterThan(0)
+            assertThat(eleLogoList[0].getAttribute("alt"), "checked the alternative Text from Logo").isEqualTo("PESO - Logo")
+        }
     }
 }

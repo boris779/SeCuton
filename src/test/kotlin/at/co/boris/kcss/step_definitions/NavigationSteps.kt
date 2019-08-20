@@ -8,7 +8,20 @@ import io.cucumber.java.en.When
 
 class NavigationSteps(testDataContainer: TestDataContainer) : AbstractStepDefs(testDataContainer) {
 
+    init {
+        Given("the startpage is loaded") {
+            getWebDriverSession().gotoUrl(PageUrls.HOME, MainPage::class, testDataContainer)
+        }
+
+        When("the Teamsite is opened") {
+            getPage(MainPage::class).clickMenuEntry("Team")
+        }
+    }
+
+
+/*
     @Given("the startpage is loaded")
+
     fun the_Startpage_is_loaded() {
         getWebDriverSession().gotoUrl(PageUrls.HOME, MainPage::class, testDataContainer)
     }
@@ -19,5 +32,5 @@ class NavigationSteps(testDataContainer: TestDataContainer) : AbstractStepDefs(t
     fun teamsite_open() {
         getPage(MainPage::class).clickMenuEntry("Team")
     }
-
+*/
 }
