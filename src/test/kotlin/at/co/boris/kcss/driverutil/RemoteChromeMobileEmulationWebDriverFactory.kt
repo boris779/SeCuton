@@ -19,7 +19,7 @@ class RemoteChromeMobileEmulationWebDriverFactory : RemoteWebDriverFactory() {
         options.merge(caps)
 
         val mobileEmulation = HashMap<String, String>()
-        mobileEmulation["deviceName"] = System.getProperty("emulated.device", "emulated_device_name_not_set")
+        mobileEmulation["deviceName"] = System.getProperty("emulated.device", "Pixel 2")
         options.setExperimentalOption("mobileEmulation", mobileEmulation)
 
         // options.setCapability("screenResolution", screenSize)

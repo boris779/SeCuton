@@ -22,13 +22,13 @@ object DriverFactory {
         val screenSize = screenResolution.resolution
 
         when (driverType) {
-            DriverType.CHROME -> {
+            DriverType.CHROME -> { //checked
                 webDriver = ChromeWebDriverFactory().createDriver()
             }
-            DriverType.FIREFOX -> {
+            DriverType.FIREFOX -> { //checked
                 webDriver = FirefoxWebDriverFactory().createDriver()
             }
-            DriverType.EDGE -> {
+            DriverType.EDGE -> { //checked
                 webDriver = EdgeWebDriverFactory().createDriver()
             }
             DriverType.IE -> {
@@ -38,21 +38,21 @@ object DriverFactory {
                 webDriver = OperaWebDriverFactory().createDriver()
             }
 
-            DriverType.CHROME_MOBILE_EMULATION -> {
+            DriverType.CHROME_MOBILE_EMULATION -> { //checked
                 webDriver = ChromeMobileEmulationWebDriverFactory().createDriver()
             }
             /* REMOTE Implementations */
 
-            DriverType.REMOTE_CHROME_MOBILE_EMULATION -> {
+            DriverType.REMOTE_CHROME_MOBILE_EMULATION -> { //checked
                 webDriver = RemoteChromeMobileEmulationWebDriverFactory().createDriver()
             }
-            DriverType.REMOTE_OPERA -> {
+            DriverType.REMOTE_OPERA -> { //checked
                 webDriver = RemoteOperaWebDriverFactory().createDriver()
             }
-            DriverType.REMOTE_CHROME -> {
+            DriverType.REMOTE_CHROME -> { //checked
                 webDriver = RemoteChromeWebDriverFactory().createDriver()
             }
-            DriverType.REMOTE_FIREFOX -> {
+            DriverType.REMOTE_FIREFOX -> { //checked
                 webDriver = RemoteFirefoxWebDriverFactory().createDriver()
             }
             DriverType.REMOTE_CHROME_MOBILE -> {
