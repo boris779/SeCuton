@@ -60,8 +60,16 @@ object DriverFactory {
             DriverType.OPERA -> {
                 webDriver = OperaWebDriverFactory().createDriver()
             }
+
+            DriverType.CHROME_MOBILE_EMULATION -> {
+                webDriver = ChromeMobileEmulationWebDriverFactory().createDriver()
+            }
+            /* REMOTE Implementations */
             DriverType.REMOTE_CHROME -> {
                 webDriver = RemoteChromeWebDriverFactory().createDriver()
+            }
+            DriverType.REMOTE_FIREFOX -> {
+                webDriver = RemoteFirefoxWebDriverFactory().createDriver()
             }
 
    /*         DriverType.REMOTE_CHROME_MOBILE -> {
@@ -80,9 +88,7 @@ object DriverFactory {
 
             } */
 
-            DriverType.CHROME_MOBILE_EMULATION -> {
-                webDriver = ChromeMobileEmulationWebDriverFactory().createDriver()
-            }
+
 
     /*        DriverType.REMOTE_CHROME_MOBILE_EMULATION -> {
 
@@ -103,9 +109,7 @@ object DriverFactory {
 
 
             } */
-            DriverType.REMOTE_FIREFOX -> {
-               webDriver = RemoteFirefoxWebDriverFactory().createDriver()
-            }
+
     /*        DriverType.REMOTE_ANDROID -> {
                 val capabilities = DesiredCapabilities()
                 capabilities.browserName = "android"
