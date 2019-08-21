@@ -65,6 +65,11 @@ object DriverFactory {
                 webDriver = ChromeMobileEmulationWebDriverFactory().createDriver()
             }
             /* REMOTE Implementations */
+
+            DriverType.REMOTE_CHROME_MOBILE_EMULATION -> {
+                webDriver = RemoteChromeMobileEmulationWebDriverFactory().createDriver()
+            }
+
             DriverType.REMOTE_CHROME -> {
                 webDriver = RemoteChromeWebDriverFactory().createDriver()
             }
@@ -90,25 +95,7 @@ object DriverFactory {
 
 
 
-    /*        DriverType.REMOTE_CHROME_MOBILE_EMULATION -> {
 
-                val capabilities = DesiredCapabilities()
-                capabilities.browserName = "chrome"
-                capabilities.version = browserVersion
-
-                val chromeOptions = ChromeOptions()
-                chromeOptions.merge(capabilities)
-                chromeOptions.setCapability("enableVNC", true)
-                chromeOptions.setCapability("name", executionTag)
-
-                val mobileEmulation = HashMap<String, String>()
-                mobileEmulation["deviceName"] = "noop"
-                chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation)
-
-                webDriver = RemoteWebDriver(URI.create("$remoteTestingServer/wd/hub").toURL(), chromeOptions)
-
-
-            } */
 
     /*        DriverType.REMOTE_ANDROID -> {
                 val capabilities = DesiredCapabilities()
