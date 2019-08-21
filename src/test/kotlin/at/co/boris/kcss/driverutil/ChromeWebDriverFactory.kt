@@ -10,10 +10,9 @@ class ChromeWebDriverFactory : WebDriverFactory() {
 
     override fun createDriver(): WebDriver {
 
-        val driverVersion = System.getProperty("driver.version")
         val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1440"))
 
-        WebDriverManager.chromedriver().version(driverVersion).setup()
+        WebDriverManager.chromedriver().version(getDriverVersion()).setup()
         val options = ChromeOptions()
 
         webDriver = ChromeDriver(options)
