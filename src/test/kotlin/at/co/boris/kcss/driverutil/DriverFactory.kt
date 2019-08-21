@@ -4,8 +4,6 @@ import logger
 import org.apache.commons.lang3.StringUtils
 import org.openqa.selenium.Point
 import org.openqa.selenium.WebDriver
-import org.openqa.selenium.remote.DesiredCapabilities
-import org.openqa.selenium.remote.RemoteWebDriver
 import java.awt.GraphicsDevice
 import java.awt.GraphicsEnvironment
 import java.util.concurrent.TimeUnit
@@ -22,12 +20,6 @@ object DriverFactory {
 
         val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1440"))
         val screenSize = screenResolution.resolution
-
-        // val browserVersion = System.getProperty("browser.version")
-        // val remoteTestingServer = System.getProperty("selenium.grid", "http://localhost:4444")
-        // val driverVersion = System.getProperty("driver.version")
-        //val videoRecording = System.getProperty("videoRecording", "no")
-        //val executionTag = System.getProperty("executionTag", "executionTag_not_set")
 
         when (driverType) {
             DriverType.CHROME -> {
@@ -54,18 +46,18 @@ object DriverFactory {
             DriverType.REMOTE_CHROME_MOBILE_EMULATION -> {
                 webDriver = RemoteChromeMobileEmulationWebDriverFactory().createDriver()
             }
-
+            DriverType.REMOTE_OPERA -> {
+                webDriver = RemoteOperaWebDriverFactory().createDriver()
+            }
             DriverType.REMOTE_CHROME -> {
                 webDriver = RemoteChromeWebDriverFactory().createDriver()
             }
             DriverType.REMOTE_FIREFOX -> {
                 webDriver = RemoteFirefoxWebDriverFactory().createDriver()
             }
-
             DriverType.REMOTE_CHROME_MOBILE -> {
                 webDriver = RemoteChromeMobileWebDriverFactory().createDriver()
             }
-
             DriverType.REMOTE_ANDROID -> {
                webDriver = RemoteAndroidWebDriverFactory().createDriver()
             }
