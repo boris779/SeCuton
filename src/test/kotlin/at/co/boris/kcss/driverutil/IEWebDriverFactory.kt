@@ -12,10 +12,9 @@ class IEWebDriverFactory : WebDriverFactory(){
     override fun createDriver(): WebDriver {
 
 
-        val driverVersion = System.getProperty("driver.version")
         val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1440"))
 
-        WebDriverManager.edgedriver().version(driverVersion).setup()
+        WebDriverManager.iedriver().version("3.9.0").setup()
         val options = InternetExplorerOptions()
 
         webDriver = InternetExplorerDriver(options)
