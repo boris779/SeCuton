@@ -5,9 +5,7 @@ import java.time.LocalDateTime
 
 abstract class RemoteWebDriverFactory: WebDriverFactory() {
 
-
     val caps = DesiredCapabilities()
-
 
     init {
         val videoRecording = System.getProperty("videoRecording", "no")
@@ -24,7 +22,6 @@ abstract class RemoteWebDriverFactory: WebDriverFactory() {
             caps.setCapability("videoName", "Test_${LocalDateTime.now()}.mp4")
         }
     }
-
 
 
     fun getRemoteTestingServer(): String {
