@@ -2,6 +2,7 @@ package at.co.boris.kcss.driverutil
 
 import logger
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.remote.DesiredCapabilities
 
 
 abstract class WebDriverFactory {
@@ -9,6 +10,7 @@ abstract class WebDriverFactory {
     lateinit var webDriver: WebDriver
     abstract fun createDriver(): WebDriver
     protected val log by logger()
+    val caps = DesiredCapabilities()
     lateinit var screenDimension: ScreenDimension
 
     init {

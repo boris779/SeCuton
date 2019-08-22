@@ -5,8 +5,6 @@ import java.time.LocalDateTime
 
 abstract class RemoteWebDriverFactory: WebDriverFactory() {
 
-    val caps = DesiredCapabilities()
-
     init {
         val videoRecording = System.getProperty("videoRecording", "no")
 
