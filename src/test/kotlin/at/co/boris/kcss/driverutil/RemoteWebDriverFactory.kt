@@ -9,12 +9,13 @@ abstract class RemoteWebDriverFactory: WebDriverFactory() {
 
     init {
         val videoRecording = System.getProperty("videoRecording", "no")
-        val executionTag = System.getProperty("executionTag", "executionTag_not_set")
 
         caps.version = getBrowserVersion()
-
         caps.setCapability("sessionTimeout", "5m")
         caps.setCapability("enableVNC", true)
+
+
+        val executionTag = System.getProperty("executionTag", "executionTag_not_set")
         caps.setCapability("name", executionTag)
 
         caps.setCapability("screenResolution", getScreenSizeAsString(screenDimension))
