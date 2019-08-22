@@ -18,8 +18,8 @@ object DriverFactory {
         val browserName = System.getProperty("browser", DriverType.CHROME.toString()).toUpperCase()
         val driverType = DriverType.valueOf(browserName)
 
-        val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1440"))
-        val screenSize = screenResolution.resolution
+
+
 
         when (driverType) {
             DriverType.CHROME -> { //checked

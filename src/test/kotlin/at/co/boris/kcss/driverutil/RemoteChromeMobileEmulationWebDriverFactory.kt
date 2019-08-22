@@ -19,13 +19,10 @@ class RemoteChromeMobileEmulationWebDriverFactory : RemoteWebDriverFactory() {
         options.merge(caps)
 
         val mobileEmulation = HashMap<String, String>()
-        mobileEmulation["deviceName"] = System.getProperty("emulated.device", "Pixel 2")
+        mobileEmulation["deviceName"] = System.getProperty("emulated.device", emulatedDevices.Pixel_2.phoneName)
         options.setExperimentalOption("mobileEmulation", mobileEmulation)
 
-        // options.setCapability("screenResolution", screenSize)
-
         webDriver = RemoteWebDriver(URI.create("${getRemoteTestingServer()}/wd/hub").toURL(), options)
-        webDriver.manage().window().maximize()
         return webDriver
     }
 

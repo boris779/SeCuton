@@ -11,14 +11,12 @@ import org.openqa.selenium.ie.InternetExplorerOptions
 class IEWebDriverFactory : WebDriverFactory(){
     override fun createDriver(): WebDriver {
 
-
-        val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1440"))
-
+        //FIXME Hardcoded Version!
         WebDriverManager.iedriver().version("3.9.0").setup()
         val options = InternetExplorerOptions()
 
         webDriver = InternetExplorerDriver(options)
-        webDriver.manage().window().size = Dimension(screenResolution.width, screenResolution.height)
+        webDriver.manage().window().size = screenDimension.dimension
 
         return webDriver
     }

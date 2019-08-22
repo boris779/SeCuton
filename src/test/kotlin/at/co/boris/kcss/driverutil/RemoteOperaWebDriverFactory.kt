@@ -22,8 +22,6 @@ class RemoteOperaWebDriverFactory : RemoteWebDriverFactory() {
 
         options.merge(caps)
 
-        // options.setCapability("screenResolution", screenSize)
-
         webDriver = RemoteWebDriver(URI.create("${getRemoteTestingServer()}/wd/hub").toURL(), options)
         webDriver.manage().window().maximize()
         return webDriver

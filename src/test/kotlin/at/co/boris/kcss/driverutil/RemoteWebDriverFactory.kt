@@ -17,6 +17,8 @@ abstract class RemoteWebDriverFactory: WebDriverFactory() {
         caps.setCapability("enableVNC", true)
         caps.setCapability("name", executionTag)
 
+        caps.setCapability("screenResolution", getScreenSizeAsString(screenDimension))
+
         if (videoRecording.toBoolean()) {
             caps.setCapability("enableVideo", true)
             caps.setCapability("videoName", "Test_${LocalDateTime.now()}.mp4")
@@ -24,8 +26,12 @@ abstract class RemoteWebDriverFactory: WebDriverFactory() {
     }
 
 
-    fun getRemoteTestingServer(): String {
+    protected fun getRemoteTestingServer(): String {
         return System.getProperty("selenium.grid", "http://localhost:4444")
+    }
+
+    private fun getScreenSizeAsString(screenDimension: ScreenDimension, colordepth: Int = 24): String {
+        return "${screenDimension.dimension.width}x${screenDimension.dimension.height}x$colordepth"
     }
 
 }

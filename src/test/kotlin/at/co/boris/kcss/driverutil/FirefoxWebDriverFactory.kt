@@ -11,17 +11,12 @@ import org.openqa.selenium.firefox.FirefoxOptions
 class FirefoxWebDriverFactory : WebDriverFactory() {
 
 
-
-//        val driverVersion =
-//        val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1440"))
-
-
     override fun createDriver(): WebDriver {
 
         WebDriverManager.firefoxdriver().version(getDriverVersion()).setup()
 
         webDriver = FirefoxDriver(FirefoxOptions())
-        //webDriver.manage().window().size = Dimension(getScreenResolution().width, getScreenResolution().height)
+        webDriver.manage().window().size = screenDimension.dimension
 
         return webDriver
     }

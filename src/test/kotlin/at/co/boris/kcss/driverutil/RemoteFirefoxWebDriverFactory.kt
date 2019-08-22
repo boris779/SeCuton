@@ -11,9 +11,6 @@ class RemoteFirefoxWebDriverFactory : RemoteWebDriverFactory() {
 
         caps.browserName = "firefox"
 
-        //caps.setCapability("screenResolution", screenSize)
-
-
         val options = FirefoxOptions()
         options.merge(caps)
 

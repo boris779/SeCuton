@@ -16,8 +16,6 @@ class RemoteChromeWebDriverFactory : RemoteWebDriverFactory() {
         val options = ChromeOptions()
         options.merge(caps)
 
-        // options.setCapability("screenResolution", screenSize)
-
         webDriver = RemoteWebDriver(URI.create("${getRemoteTestingServer()}/wd/hub").toURL(), options)
         webDriver.manage().window().maximize()
         return webDriver

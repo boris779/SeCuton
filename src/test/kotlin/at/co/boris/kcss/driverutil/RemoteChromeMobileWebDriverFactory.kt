@@ -18,7 +18,6 @@ class RemoteChromeMobileWebDriverFactory : RemoteWebDriverFactory() {
         val options = ChromeOptions()
         options.merge(caps)
 
-        // options.setCapability("screenResolution", screenSize)
 
         //BUG in Android selenoid Image, 20.06.2019
         options.setCapability("enableVNC", false)

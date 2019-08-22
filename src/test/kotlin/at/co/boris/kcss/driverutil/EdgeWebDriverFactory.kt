@@ -16,13 +16,11 @@ import java.io.File
 class EdgeWebDriverFactory : WebDriverFactory(){
     override fun createDriver(): WebDriver {
 
-        val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1440"))
-
         WebDriverManager.edgedriver().version(getDriverVersion()).setup()
         checkEnvironment()
 
         webDriver = EdgeDriver()
-        webDriver.manage().window().size = Dimension(screenResolution.width, screenResolution.height)
+        webDriver.manage().window().size = screenDimension.dimension
 
         return webDriver
     }

@@ -10,13 +10,12 @@ class OperaWebDriverFactory : WebDriverFactory() {
     override fun createDriver(): WebDriver {
 
         val driverVersion = System.getProperty("driver.version")
-        val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1440"))
 
         WebDriverManager.operadriver().version(driverVersion).setup()
         val options = OperaOptions()
 
         webDriver = OperaDriver(options)
-        webDriver.manage().window().size = Dimension(screenResolution.width, screenResolution.height)
+        webDriver.manage().window().size = screenDimension.dimension
 
         return webDriver
     }

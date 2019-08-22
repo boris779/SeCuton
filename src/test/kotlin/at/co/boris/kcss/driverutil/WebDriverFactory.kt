@@ -9,6 +9,15 @@ abstract class WebDriverFactory {
     lateinit var webDriver: WebDriver
     abstract fun createDriver(): WebDriver
     protected val log by logger()
+    lateinit var screenDimension: ScreenDimension
+
+    init {
+        val screenSize = System.getProperty("screen.size", ScreenDimension.Desktop_1080.toString())
+
+        if (screenSize != null) {
+            screenDimension = ScreenDimension.valueOf(screenSize)
+        }
+    }
 
 
     fun getDriverVersion(): String? {
