@@ -20,7 +20,6 @@ class WebDriverSession(private val testId: String) {
         }
         System.getProperty("baseUrl")
     }
-    //val isMobile : Boolean by lazy { (webDriver as RemoteWebDriver).capabilities. }
 
     fun isMobile(): Boolean {
         return (webDriver as RemoteWebDriver).isMobile()

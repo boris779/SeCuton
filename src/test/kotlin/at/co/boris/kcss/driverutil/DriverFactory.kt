@@ -1,29 +1,11 @@
 package at.co.boris.kcss.driverutil
 
-import io.appium.java_client.android.AndroidDriver
-import io.appium.java_client.android.AndroidElement
-import io.appium.java_client.remote.MobileCapabilityType
-import io.github.bonigarcia.wdm.WebDriverManager
 import logger
 import org.apache.commons.lang3.StringUtils
-import org.openqa.selenium.Dimension
 import org.openqa.selenium.Point
 import org.openqa.selenium.WebDriver
-import org.openqa.selenium.chrome.ChromeDriver
-import org.openqa.selenium.chrome.ChromeOptions
-import org.openqa.selenium.edge.EdgeDriver
-import org.openqa.selenium.firefox.FirefoxDriver
-import org.openqa.selenium.firefox.FirefoxOptions
-import org.openqa.selenium.ie.InternetExplorerDriver
-import org.openqa.selenium.opera.OperaDriver
-import org.openqa.selenium.remote.DesiredCapabilities
-import org.openqa.selenium.remote.RemoteWebDriver
 import java.awt.GraphicsDevice
 import java.awt.GraphicsEnvironment
-import java.io.File
-import java.net.URI
-import java.net.URL
-import java.time.LocalDateTime
 import java.util.concurrent.TimeUnit
 
 object DriverFactory {
@@ -34,195 +16,77 @@ object DriverFactory {
 
         val webDriver: WebDriver
         val browserName = System.getProperty("browser", DriverType.CHROME.toString()).toUpperCase()
-        val browserVersion = System.getProperty("browser.version")
-        val remoteTestingServer = System.getProperty("selenium.grid", "http://localhost:4444")
         val driverType = DriverType.valueOf(browserName)
-        val driverVersion = System.getProperty("driver.version")
-        val emulatedDevice = System.getProperty("emulated.device", "Pixel 2")
-        val screenResolution = ScreenResolutions.valueOf(System.getProperty("viewport_resolution", "desktop_1440"))
-        val videoRecording = System.getProperty("videoRecording", "no")
-        val screenSize = screenResolution.resolution
-        val executionTag = System.getProperty("executionTag", "executionTag_not_set")
 
-        val testId = "Test_" + LocalDateTime.now()
+
 
 
         when (driverType) {
-            DriverType.CHROME -> {
-                WebDriverManager.chromedriver().version(driverVersion).setup()
-                val options = ChromeOptions()
-
-                webDriver = ChromeDriver(options)
-                webDriver.manage().window().size = Dimension(screenResolution.width, screenResolution.height)
+            DriverType.CHROME -> { //checked
+                webDriver = ChromeWebDriverFactory().createDriver()
             }
-            DriverType.FIREFOX -> {
-                WebDriverManager.firefoxdriver().version(driverVersion).setup()
-                webDriver = FirefoxDriver()
-                webDriver.manage().window().size = Dimension(screenResolution.width, screenResolution.height)
+            DriverType.FIREFOX -> { //checked
+                webDriver = FirefoxWebDriverFactory().createDriver()
             }
-            DriverType.EDGE -> {
-                WebDriverManager.edgedriver().version(driverVersion).setup()
-                webDriver = EdgeDriver()
-                webDriver.manage().window().size = Dimension(screenResolution.width, screenResolution.height)
+            DriverType.EDGE -> { //checked
+                webDriver = EdgeWebDriverFactory().createDriver()
             }
             DriverType.IE -> {
-                WebDriverManager.iedriver().setup()
-                webDriver = InternetExplorerDriver()
-                webDriver.manage().window().size = Dimension(screenResolution.width, screenResolution.height)
+                webDriver = IEWebDriverFactory().createDriver()
             }
             DriverType.OPERA -> {
-                WebDriverManager.operadriver().version(driverVersion).setup()
-                webDriver = OperaDriver()
-                webDriver.manage().window().size = Dimension(screenResolution.width, screenResolution.height)
-            }
-            DriverType.REMOTE_CHROME -> {
-
-                val caps = DesiredCapabilities()
-                caps.version = browserVersion
-                caps.browserName = "chrome"
-
-                val options = ChromeOptions()
-                options.merge(caps)
-
-
-                if (videoRecording.toBoolean()) {
-                    options.setCapability("enableVNC", true)
-                    options.setCapability("enableVideo", false)
-                    options.setCapability("videoName", "$testId.mp4")
-                }
-
-                options.setCapability("screenResolution", screenSize)
-                options.setCapability("sessionTimeout", "5m")
-
-                options.setCapability("name", executionTag)
-
-                webDriver = RemoteWebDriver(URI.create("$remoteTestingServer/wd/hub").toURL(), options)
-                webDriver.manage().window().maximize()
+                webDriver = OperaWebDriverFactory().createDriver()
             }
 
+            DriverType.CHROME_MOBILE_EMULATION -> { //checked
+                webDriver = ChromeMobileEmulationWebDriverFactory().createDriver()
+            }
+            /* REMOTE Implementations */
+
+            DriverType.REMOTE_CHROME_MOBILE_EMULATION -> { //checked
+                webDriver = RemoteChromeMobileEmulationWebDriverFactory().createDriver()
+            }
+            DriverType.REMOTE_OPERA -> { //checked
+                webDriver = RemoteOperaWebDriverFactory().createDriver()
+            }
+            DriverType.REMOTE_CHROME -> { //checked
+                webDriver = RemoteChromeWebDriverFactory().createDriver()
+            }
+            DriverType.REMOTE_FIREFOX -> { //checked
+                webDriver = RemoteFirefoxWebDriverFactory().createDriver()
+            }
             DriverType.REMOTE_CHROME_MOBILE -> {
-                val capabilities = DesiredCapabilities()
-                capabilities.browserName = "chrome"
-                capabilities.version = "mobile-$browserVersion"
-
-                val chromeOptions = ChromeOptions()
-                chromeOptions.merge(capabilities)
-                //BUG in Android selenoid Image, 20.06.2019
-                //chromeOptions.setCapability("enableVNC", true)
-                chromeOptions.setCapability("sessionTimeout", "15m")
-
-                webDriver = RemoteWebDriver(URI.create("$remoteTestingServer/wd/hub").toURL(), chromeOptions)
-
-
-            }
-
-            DriverType.CHROME_MOBILE_EMULATION -> {
-
-                WebDriverManager.chromedriver().version(driverVersion).setup()
-
-                val capabilities = DesiredCapabilities()
-                capabilities.browserName = "chrome"
-                capabilities.version = browserVersion
-
-                val chromeOptions = ChromeOptions()
-                chromeOptions.merge(capabilities)
-
-                val mobileEmulation = HashMap<String, String>()
-                mobileEmulation["deviceName"] = emulatedDevice
-                chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation)
-
-
-                webDriver = ChromeDriver(chromeOptions)
-            }
-
-            DriverType.REMOTE_CHROME_MOBILE_EMULATION -> {
-
-                val capabilities = DesiredCapabilities()
-                capabilities.browserName = "chrome"
-                capabilities.version = browserVersion
-
-                val chromeOptions = ChromeOptions()
-                chromeOptions.merge(capabilities)
-                chromeOptions.setCapability("enableVNC", true)
-                chromeOptions.setCapability("name", executionTag)
-
-                val mobileEmulation = HashMap<String, String>()
-                mobileEmulation["deviceName"] = emulatedDevice
-                chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation)
-
-                webDriver = RemoteWebDriver(URI.create("$remoteTestingServer/wd/hub").toURL(), chromeOptions)
-
-
-            }
-            DriverType.REMOTE_FIREFOX -> {
-                val capabilities = DesiredCapabilities()
-                capabilities.browserName = "firefox"
-                capabilities.setCapability("enableVNC", true)
-                capabilities.setCapability("enableVideo", false)
-                capabilities.setCapability("screenResolution", screenSize)
-                capabilities.setCapability("sessionTimeout", "5m")
-                capabilities.setCapability("name", executionTag)
-
-                val options = FirefoxOptions()
-                options.merge(capabilities)
-
-                webDriver = RemoteWebDriver(URI.create("$remoteTestingServer/wd/hub").toURL(), options)
-                webDriver.manage().window().maximize()
+                webDriver = RemoteChromeMobileWebDriverFactory().createDriver()
             }
             DriverType.REMOTE_ANDROID -> {
-                val capabilities = DesiredCapabilities()
-                capabilities.browserName = "android"
-                capabilities.version = "8.1"
-                capabilities.setCapability("enableVNC", true)
-                capabilities.setCapability("enableVideo", true)
-                capabilities.setCapability("screenResolution", screenSize)
-                capabilities.setCapability("sessionTimeout", "15m")
-
-                webDriver = RemoteWebDriver(URI.create("$remoteTestingServer/wd/hub").toURL(), capabilities)
+               webDriver = RemoteAndroidWebDriverFactory().createDriver()
             }
-            DriverType.ANDROID_DEVICE -> {
-
-                WebDriverManager.chromedriver().version(driverVersion).setup()
-
-                val path2chromeDriver = WebDriverManager.chromedriver().binaryPath.substringBeforeLast(File.separator)
-
-                val capabilities = DesiredCapabilities()
-                capabilities.setCapability("chromedriverExecutableDir", path2chromeDriver)
-                capabilities.setCapability(MobileCapabilityType.APPIUM_VERSION, "1.13")
-                capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android")
-                capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Appium_Android_Device")
-                capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator1")
-                capabilities.setCapability("browserName", "chrome")
-                capabilities.setCapability(MobileCapabilityType.UDID, System.getProperty("device.id", "emulator-5554"))
-
-                capabilities.setCapability("noReset", true)
-
-                val appiumServer = URL("$remoteTestingServer/wd/hub")
-                webDriver = AndroidDriver<AndroidElement>(appiumServer, capabilities)
+            DriverType.APPIUM_ANDROID_DEVICE -> {
+                webDriver = AppiumAndroidWebDriverFactory().createDriver()
             }
         }
 
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS)
 
 
-        if (driverType != DriverType.ANDROID_DEVICE) {
+        /*   if (driverType != DriverType.ANDROID_DEVICE) {
 
-            var topLeft = Point(0, 0)
+               var topLeft = Point(0, 0)
 
-            try {
-                if (!GraphicsEnvironment.isHeadless()) {
-                    val graphicsDevice = getGraphicsDevice()
-                    topLeft = getTopLeftScreenPosition(graphicsDevice)
-                }
-            } catch (e: NoClassDefFoundError) {
-                log.debug("Graphics settings not initialized! $e")
-            } catch (e: RuntimeException) {
-                log.debug("Graphics settings not initialized! $e")
-            }
+               try {
+                   if (!GraphicsEnvironment.isHeadless()) {
+                       val graphicsDevice = getGraphicsDevice()
+                       topLeft = getTopLeftScreenPosition(graphicsDevice)
+                   }
+               } catch (e: NoClassDefFoundError) {
+                   log.debug("Graphics settings not initialized! $e")
+               } catch (e: RuntimeException) {
+                   log.debug("Graphics settings not initialized! $e")
+               }
 
-            webDriver.manage().window().position.moveBy(topLeft.x, topLeft.y)
+               webDriver.manage().window().position.moveBy(topLeft.x, topLeft.y)
 
-        }
+           } */
 
         return webDriver
     }
@@ -235,7 +99,7 @@ object DriverFactory {
         if (System.getProperty("printScreens", "no") == "yes") {
             log.debug("#######################################")
             log.debug("Your screen id's: ")
-            GraphicsEnvironment.getLocalGraphicsEnvironment().screenDevices.forEach { log.debug(it.iDstring)}
+            GraphicsEnvironment.getLocalGraphicsEnvironment().screenDevices.forEach { log.debug(it.iDstring) }
             log.debug("#######################################")
         }
 
