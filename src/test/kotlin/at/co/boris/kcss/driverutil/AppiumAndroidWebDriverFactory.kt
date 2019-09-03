@@ -1,10 +1,12 @@
 package at.co.boris.kcss.driverutil
 
+import assertk.fail
 import io.appium.java_client.android.AndroidDriver
 import io.appium.java_client.android.AndroidElement
 import io.appium.java_client.remote.MobileCapabilityType
 import io.github.bonigarcia.wdm.WebDriverManager
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.WebDriverException
 import java.io.File
 import java.net.URL
 
@@ -27,6 +29,15 @@ class AppiumAndroidWebDriverFactory : RemoteWebDriverFactory() {
 
         val appiumServer = URL("${getRemoteTestingServer()}/wd/hub")
         webDriver = AndroidDriver<AndroidElement>(appiumServer, caps)
+
+        try {
+            webDriver = AndroidDriver<AndroidElement>(appiumServer, caps)
+
+        } catch (e: WebDriverException) {
+            fail("Appium error: $appiumServer ::: Appium started?")
+        }
+
+
         return webDriver
     }
 

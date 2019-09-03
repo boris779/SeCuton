@@ -1,8 +1,12 @@
 package at.co.boris.kcss.driverutil
 
+import io.appium.java_client.android.AndroidDriver
+import io.appium.java_client.android.AndroidElement
+import io.appium.java_client.remote.MobileCapabilityType
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URI
+import java.net.URL
 
 class RemoteAndroidWebDriverFactory : RemoteWebDriverFactory() {
     override fun createDriver(): WebDriver {
@@ -14,8 +18,17 @@ class RemoteAndroidWebDriverFactory : RemoteWebDriverFactory() {
         //caps.setCapability("screenResolution", screenSize)
         caps.setCapability("sessionTimeout", "15m")
 
-        webDriver = RemoteWebDriver(URI.create("${getRemoteTestingServer()}/wd/hub").toURL(), caps)
+        caps.setCapability("noReset", false)
+        caps.setCapability(MobileCapabilityType.UDID, System.getProperty("device.id", "emulator-5554"))//"DEFAULT_ANDROID_DEVICE_ID"))
+        caps.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android")
+        caps.setCapability(MobileCapabilityType.DEVICE_NAME, "Android_Device_Appium")
+        caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2")
+        caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 12000)
+
+        webDriver = AndroidDriver<AndroidElement>(URL("${getRemoteTestingServer()}/wd/hub"), caps)
+        //webDriver = RemoteWebDriver(URI.create("${getRemoteTestingServer()}/wd/hub").toURL(), caps)
         return webDriver
+
     }
 
 }
