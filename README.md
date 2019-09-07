@@ -1,13 +1,36 @@
-# kotlin-cucumber-selenium-skeleton
+# SeCuton - Selenium Cucumber Skeleton
+
+If you want to start as fast as possible with Selenium (LINK) in combiation with cucumber (LINK) your are absolutely right here. Just checkout this repo and start it. It provides running examples so that everybody can create new test in a short time.
+
+You should be familar with kotlin (or Java) and cucumber to create new scenarios and corresponding glue code.
 
 This is a skeleton which is based on selenium, cucumber with kotlin, and parallel-execution support with cucable.
-Also cucumber-picocontainer are added for a smoothly usage of test data in all steps.
+Also cucumber-picocontainer are added for a smoothly usage of test data between all steps.
 
+## Prerequireies
+* Java SDK (tested with Version 11 and 12)
+* Maven
+
+### Optional:
+* Selenium Grid / Selenoid / Moon if you don't want to run the test locally
+* Appium for Android test execution 
 
 
 # How to run tests locally
 
-You need to define some parameters to get the tests run as you expected
+* Option 1: Start with maven
+
+* Option 2: Start directly from IDEA with a runConfiguration
+
+
+In both cases you need to define some parameters to get the tests run:
+
+| Name | Description |
+|------|-------------|
+|browser | choose the type of the browser, allowed values are defined in DriverTypes (LINK) |
+| browser.version | if you do not want to use the newest browser version which will be provided by the webdriver manager you can set the version with this parameter|
+| driver.version | sometimes it is necessary to the version for the WebDriver, depending on which browser.version you are using, or you have installed on your local machine, for browser.version and driver.version take a look at webdriver manager (LINK)|
+| baseUrl | the base URL for your website under test |  
 
 Example runtime parameters:
 
@@ -17,6 +40,8 @@ Example runtime parameters:
     -Ddriver.version=74
     
 browser see +sectrion browser-types
+
+
     
 ## screen
 
@@ -69,11 +94,11 @@ webdriver manager (https://github.com/bonigarcia/webdrivermanager) from Boni Gar
 chrome or chromium which is supported by chromedriver. 
 ## firefox
 
-## mobile-chrome emulation (with user-agent
+## mobile-chrome emulation (with user-agent manipulation)
 This will use the experimental feature 
  `chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);`
 
-chrome is used with a manipluated user-agnet. 
+chrome is used with a manipluated user-agnet, similar to mobile view in browser developer mode
 
 ## mobile-chrome (via selenoid)
 This only works if you have a selenoid or moon environment. Further information will follow.
