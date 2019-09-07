@@ -7,6 +7,9 @@ You should be familar with kotlin (or Java) and cucumber to create new scenarios
 This is a skeleton which is based on selenium, cucumber with kotlin, and parallel-execution support with cucable.
 Also cucumber-picocontainer are added for a smoothly usage of test data between all steps.
 
+Reports will be generated with cluecumber Report (LINK) or if you run the test in a jenkins environment Cucumber Report (version ..., LINK) can be used for smooth reports
+
+
 ## Prerequireies
 * Java SDK (tested with Version 11 and 12)
 * Maven

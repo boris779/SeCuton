@@ -25,7 +25,7 @@ fun RemoteWebDriver.isMobile(): Boolean {
         }
     }
 
-    if (System.getProperty("browser").contains("emulation")) {
+    if (System.getProperty("browser", "not set").contains("emulation")) {
         return true
     }
 
