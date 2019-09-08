@@ -1,13 +1,14 @@
 # SeCuton - Selenium Cucumber Skeleton
 
-If you want to start as fast as possible with Selenium (LINK) in combiation with cucumber (LINK) your are absolutely right here. Just checkout this repo and start it. It provides running examples so that everybody can create new test in a short time.
+If you want to start as fast as possible with [Selenium](https://github.com/SeleniumHQ/selenium) in combiation with [cucumber](https://github.com/cucumber/cucumber) your are absolutely right here. Just checkout this repo and start it. It provides running examples so that everybody can create new test in a short time.
 
 You should be familar with kotlin (or Java) and cucumber to create new scenarios and corresponding glue code.
 
 This is a skeleton which is based on selenium, cucumber with kotlin, and parallel-execution support with cucable.
-Also cucumber-picocontainer are added for a smoothly usage of test data between all steps.
+Also [cucumber-picocontainer](https://github.com/cucumber/cucumber-jvm/tree/master/picocontainer) are added for a smoothly usage of test data between all steps.
+For quick and easy setup of Webdriver, [WebDriverManager](https://github.com/bonigarcia/webdrivermanager) from [Boni Garica](https://github.com/bonigarcia/bonigarcia.github.io) is used. 
 
-Reports will be generated with cluecumber Report (LINK) or if you run the test in a jenkins environment Cucumber Report (version ..., LINK) can be used for smooth reports
+Reports will be generated with [cluecumber Report](https://github.com/trivago/cluecumber-report-plugin) or if you run the test in a jenkins environment [Cucumber Report](https://wiki.jenkins.io/display/JENKINS/Cucumber+Reports+Plugin) can be used for smooth reports
 
 
 ## Prerequireies
@@ -15,8 +16,8 @@ Reports will be generated with cluecumber Report (LINK) or if you run the test i
 * Maven
 
 ### Optional:
-* Selenium Grid / Selenoid / Moon if you don't want to run the test locally
-* Appium for Android test execution 
+* Selenium Grid / [Selenoid](https://github.com/aerokube/selenoid) / Moon if you don't want to run the test locally
+* [Appium](https://github.com/appium/appium) for Android test execution 
 
 
 # How to run tests locally
@@ -25,12 +26,11 @@ Reports will be generated with cluecumber Report (LINK) or if you run the test i
 
 * Option 2: Start directly from IDEA with a runConfiguration
 
-
 In both cases you need to define some parameters to get the tests run:
 
 | Name | Description |
 |------|-------------|
-|browser | choose the type of the browser, allowed values are defined in DriverTypes (LINK) |
+|browser | choose the type of the browser, allowed values are defined in [DriverTypes Class](/src/DriverTypes.kt) |
 | browser.version | if you do not want to use the newest browser version which will be provided by the webdriver manager you can set the version with this parameter|
 | driver.version | sometimes it is necessary to the version for the WebDriver, depending on which browser.version you are using, or you have installed on your local machine, for browser.version and driver.version take a look at webdriver manager (LINK)|
 | baseUrl | the base URL for your website under test |  
@@ -89,9 +89,7 @@ scenarios have a unique ID. The ID is not checked anywhere, it is selforganzing,
 
 
 #Supported Browser
-Webdriver Setup will be done with
-
-webdriver manager (https://github.com/bonigarcia/webdrivermanager) from Boni Garcia  (https://github.com/bonigarcia/bonigarcia.github.io)
+Setup will be done via webDriverManger as mentioned above.
 
 ## chrome
 chrome or chromium which is supported by chromedriver. 
