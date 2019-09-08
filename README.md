@@ -24,7 +24,10 @@ Reports will be generated with [cluecumber Report](https://github.com/trivago/cl
 
 * Option 1: Start with maven
 
+     `clean install -DbaseUrl=http://peso.inso.tuwien.ac.at -f pom.xml` 
+
 * Option 2: Start directly from IDEA with a runConfiguration
+![idea run configuration](docs/images/idea_runConfig.png)
 
 In both cases you need to define some parameters to get the tests run:
 
@@ -85,7 +88,7 @@ scenarios have a unique ID. The ID is not checked anywhere, it is selforganzing,
 
 //TODO add here screenshots from jenkins
 
-![testresults from IntelliJ](images/testresults_idea.png)
+![testresults from IntelliJ](docs/images/testresults_idea.png)
 
 
 #Supported Browser
