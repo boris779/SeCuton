@@ -33,7 +33,7 @@ In both cases you need to define some parameters to get the tests run:
 
 | Name | Description |
 |------|-------------|
-|browser | choose the type of the browser, allowed values are defined in [DriverTypes Class](src/test/kotlin/at.co.boris.secton/driverutil/DriverTypes.kt) |
+|browser | choose the type of the browser, allowed values are defined in [DriverTypes Class](src/test/kotlin/at/co/boris/secuton/driverutil/Constants.kt) |
 | browser.version | if you do not want to use the newest browser version which will be provided by the webdriver manager you can set the version with this parameter|
 | driver.version | sometimes it is necessary to the version for the WebDriver, depending on which browser.version you are using, or you have installed on your local machine, for browser.version and driver.version take a look at webdriver manager|
 | baseUrl | the base URL for your website under test |  
