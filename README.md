@@ -33,9 +33,9 @@ In both cases you need to define some parameters to get the tests run:
 
 | Name | Description |
 |------|-------------|
-|browser | choose the type of the browser, allowed values are defined in [DriverTypes Class](/src/DriverTypes.kt) |
+|browser | choose the type of the browser, allowed values are defined in [DriverTypes Class](src/test/kotlin/at.co.boris.secton/driverutil/DriverTypes.kt) |
 | browser.version | if you do not want to use the newest browser version which will be provided by the webdriver manager you can set the version with this parameter|
-| driver.version | sometimes it is necessary to the version for the WebDriver, depending on which browser.version you are using, or you have installed on your local machine, for browser.version and driver.version take a look at webdriver manager (LINK)|
+| driver.version | sometimes it is necessary to the version for the WebDriver, depending on which browser.version you are using, or you have installed on your local machine, for browser.version and driver.version take a look at webdriver manager|
 | baseUrl | the base URL for your website under test |  
 
 Example runtime parameters:
@@ -66,7 +66,7 @@ Depending on your os the iDstring is different for your screens. GraphicsEnviron
 # Scenarios
 ## Feature file structure
 For finding scenarios faster (especially if the fail) I used a template for scenarios with two components
-* Filename is given in []
+* Filename is given in "[ ]" (squared brackets)
 * Description of every scenario starts with [XXX-99 followed again with the [filename]
 
 example:
