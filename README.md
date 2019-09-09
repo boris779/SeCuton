@@ -33,23 +33,15 @@ In both cases you need to define some parameters to get the tests run:
 
 | Name | Description |
 |------|-------------|
-|browser | choose the type of the browser, allowed values are defined in [DriverTypes Class](src/test/kotlin/at.co.boris.secton/driverutil/DriverTypes.kt) |
+|browser | choose the type of the browser, allowed values are defined in [DriverTypes Class](src/test/kotlin/at.co.boris.secton/driverutil/DriverTypes.kt). default = chrome |
 | browser.version | if you do not want to use the newest browser version which will be provided by the webdriver manager you can set the version with this parameter|
 | driver.version | sometimes it is necessary to the version for the WebDriver, depending on which browser.version you are using, or you have installed on your local machine, for browser.version and driver.version take a look at webdriver manager|
-| baseUrl | the base URL for your website under test |  
+| baseUrl* | the base URL for your website under test |  
+| screen | If running tests on a multi monitor system, will move the browser window to given screen id |
+| selenium.grid | URL of selenium grid Server or a service which implements the selenium grid protocol like selenoid or appium |
+\* is mandatory
 
-Example runtime parameters:
-
-    -Dbrowser=chrome
-    -Dbrowser.version=74.0
-    -DbaseUrl="http://peso.inso.tuwien.ac.at"
-    -Ddriver.version=74
-    
-browser see +sectrion browser-types
-
-
-    
-## screen
+### screen
 
 If you have a multiple monitor system and want to have the browser window on a dedicated screen just use the screen parameter: 
       
@@ -58,10 +50,16 @@ If you have a multiple monitor system and want to have the browser window on a d
 Depending on your os the iDstring is different for your screens. GraphicsEnvironment Package is used. Use -DprintScreens=yes to get a list in log for next execution
 
 
-# Run tests with a selenium grid, selenoid or appium
+### Run tests with a selenium grid, selenoid or appium
 
     -Dselenium.grid=http://<ip-of-your-grid:4444>
 
+Example runtime parameters:
+
+    -Dbrowser=chrome
+    -Dbrowser.version=76.0
+    -DbaseUrl="http://peso.inso.tuwien.ac.at"
+    -Ddriver.version="76.0.3809.126"
 
 # Scenarios
 ## Feature file structure
