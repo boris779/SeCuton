@@ -38,17 +38,10 @@ In both cases you need to define some parameters to get the tests running:
 | browser.version | If you do not want to use the latest browser version, which is provided by the Webdriver manager, you can set the version with this parameter.|
 | driver.version | Sometimes it is necessary to define the Webdriver version, depending on which browser.version you are using or is installed on your local machine. To define browser.version and driver.version use Boni Garcia's [WebDriverManager](https://github.com/bonigarcia/webdrivermanager).|  
 | screen | If running tests on a multi monitor system, this parameter will move the browser window to the specified screen ID. |
+| printScreen | Gives you the ID's of connected screens in log for next run using the screen parameter |
 | selenium.grid | URL of Selenium grid server or a service which implements the Selenium grid protocol like Selenoid or Appium. |
+| device.id | only used if you want to run with mit mobile-chrome
 \* is mandatory
-
-### Screen (TODO)
-
-If you have a multiple monitor system and want to have the browser window on a dedicated screen just use the screen parameter: 
-      
-      -Dscreen=:0.0
-
-Depending on your os the iDstring is different for your screens. GraphicsEnvironment Package is used. Use -DprintScreens=yes to get a list in log for next execution
-
 
 ### Run tests with Selenium grid, Selenoid or Appium
 
@@ -84,26 +77,26 @@ example:
 Scenarios have a unique ID which you have to assign manually and keep track of. If a scenario fails, you can easily jump to the step definitions via text search in your IDE.
 
 
-//TODO add here screenshots from jenkins
+//TODO (add here screenshots from jenkins)
 
 ![testresults from IntelliJ](docs/images/testresults_idea.png)
 
 
-#Supported Browser
+#Supported Browser in DriverType enum
 Setup will be done via WebDriverManager as mentioned above.
+### regular Browsers for local run
+Chrome, Firefox, Opera, IE and Edge
 
-### Chrome
-Chrome or Chromium which is supported by Chromedriver. 
-### Firefox
-(TODO)
+### Remote Browsers (via Selenoid, Selenium Grid, ...)
+Chrome, Firefox, Opera, Chrome Mobile, Chrome Mobile Emulation, Android
+
 ### Mobile Chrome emulation (with user agent manipulation)
 Chrome is used with a manipulated user agent, similar to the mobile view in browser developer mode.
 The following option is set in the DriverFactory: 
  `chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);`
 
-
 ### Mobile-chrome (via Selenoid)
-This only works if you have a Selenoid or Moon environment. Further information will follow.
+This only works if you have a Selenoid or Moon environment. For further information take a look at [Aerokube Website](https://aerokube.com) 
 
 Example of a runtime configuration for an emulated Pixel 2 with a desktop Chrome browser:
 
@@ -112,6 +105,7 @@ Example of a runtime configuration for an emulated Pixel 2 with a desktop Chrome
     -Ddriver.version=75
     -DbaseUrl="http://peso.inso.tuwien.ac.at"
     -Demulated.device="Pixel 2"
+    
 ### Android device (via Appium)
 You can use an emulated device (AVD Manager) or a connected real device, which both have to be supported by Appium.
 
@@ -120,15 +114,12 @@ You can use an emulated device (AVD Manager) or a connected real device, which b
     List of devices attached
     emulator-5554	device
 
-
 Use parameter to set the ID `-Ddevice.id="emulator-5554"`
 
+Example of runtime configuration for running a test on a emulated Android device on Appium (which runs locally on Port 4723):
 
-Example of runtime configuration for an emulated 8.1 Android device:
-
-        -Dbrowser=android_device
+        -Dbrowser=appium_android_device
         -DbaseUrl="http://peso.inso.tuwien.ac.at"
         -Dselenium.grid=http://localhost:4723
         -Ddriver.version=2.34
         -Ddevice.id="emulator-5554"
-
