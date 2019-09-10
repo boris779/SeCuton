@@ -9,7 +9,7 @@ import at.co.boris.secuton.pageobjects.MainPage
 class MainPageSteps(testDataContainer: TestDataContainer) : AbstractStepDefs(testDataContainer) {
 
     init {
-        Then("the peso-logo should be displayed") {
+        Then("the peso logo should be displayed") {
 
             val eleLogoList = getPage(MainPage::class).getLogo()
 

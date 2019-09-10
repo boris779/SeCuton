@@ -1,47 +1,47 @@
 # SeCuton - Selenium Cucumber Skeleton
 
-If you want to start as fast as possible with [Selenium](https://github.com/SeleniumHQ/selenium) in combiation with [cucumber](https://github.com/cucumber/cucumber) your are absolutely right here. Just checkout this repo and start it. It provides running examples so that everybody can create new test in a short time.
+If you want to start as fast as possible with [Selenium](https://github.com/SeleniumHQ/selenium) in combination with [Cucumber](https://github.com/cucumber/cucumber) you are absolutely right here. Just clone this repo and start it. It contains executable minimalistic examples so you can create your own scenarios easily and fast.
 
-You should be familar with kotlin (or Java) and cucumber to create new scenarios and corresponding glue code.
+You should be familiar with Kotlin (TODO Link) (or Java) and Cucumber to create new scenarios and corresponding glue code.
 
-This is a skeleton which is based on selenium, cucumber with kotlin, and parallel-execution support with cucable.
-Also [cucumber-picocontainer](https://github.com/cucumber/cucumber-jvm/tree/master/picocontainer) are added for a smoothly usage of test data between all steps.
-For quick and easy setup of Webdriver, [WebDriverManager](https://github.com/bonigarcia/webdrivermanager) from [Boni Garica](https://github.com/bonigarcia/bonigarcia.github.io) is used. 
+This is a skeleton which is based on Selenium, Cucumber with Kotlin, and parallel-execution support with Cucable.
+Also, [Cucumber Picocontainers](https://github.com/cucumber/cucumber-jvm/tree/master/picocontainer) were added for a smooth usage of test data among all steps.
+For a quick and easy setup of Webdriver, [WebDriverManager](https://github.com/bonigarcia/webdrivermanager) from [Boni Garcia](https://github.com/bonigarcia/bonigarcia.github.io) is used. 
 
-Reports will be generated with [cluecumber Report](https://github.com/trivago/cluecumber-report-plugin) or if you run the test in a jenkins environment [Cucumber Report](https://wiki.jenkins.io/display/JENKINS/Cucumber+Reports+Plugin) can be used for smooth reports
+Reports will be generated with [Cluecumber Report](https://github.com/trivago/cluecumber-report-plugin) or - if you run the test in a Jenkins environment - [Cucumber Report](https://wiki.jenkins.io/display/JENKINS/Cucumber+Reports+Plugin) can be used for smooth reports.
 
 
-## Prerequireies
+## Prerequisites
 * Java SDK (tested with Version 11 and 12)
 * Maven
 
-### Optional:
-* Selenium Grid / [Selenoid](https://github.com/aerokube/selenoid) / Moon if you don't want to run the test locally
-* [Appium](https://github.com/appium/appium) for Android test execution 
+### Optional
+* If you do not want to run the test locally: Selenium Grid, [Selenoid](https://github.com/aerokube/selenoid) or Moon
+* For Android test execution: [Appium](https://github.com/appium/appium)  
 
 
 # How to run tests locally
 
-* Option 1: Start with maven
+* Option 1: Start with Maven
 
      `clean install -DbaseUrl=http://peso.inso.tuwien.ac.at -f pom.xml` 
 
 * Option 2: Start directly from IDEA with a runConfiguration
 ![idea run configuration](docs/images/idea_runConfig.png)
 
-In both cases you need to define some parameters to get the tests run:
+In both cases you need to define some parameters to get the tests running:
 
 | Name | Description |
 |------|-------------|
-|browser | choose the type of the browser, allowed values are defined in [DriverTypes Class](src/test/kotlin/at.co.boris.secton/driverutil/DriverTypes.kt). default = chrome |
-| browser.version | if you do not want to use the newest browser version which will be provided by the webdriver manager you can set the version with this parameter|
-| driver.version | sometimes it is necessary to the version for the WebDriver, depending on which browser.version you are using, or you have installed on your local machine, for browser.version and driver.version take a look at webdriver manager|
-| baseUrl* | the base URL for your website under test |  
-| screen | If running tests on a multi monitor system, will move the browser window to given screen id |
-| selenium.grid | URL of selenium grid Server or a service which implements the selenium grid protocol like selenoid or appium |
+| baseUrl* | The base URL for your website under test. |
+| browser | Choose the browser type. Allowed values are defined in [DriverTypes Class](src/test/kotlin/at.co.boris.secton/driverutil/DriverTypes.kt). default = chrome |
+| browser.version | If you do not want to use the latest browser version, which is provided by the Webdriver manager, you can set the version with this parameter.|
+| driver.version | Sometimes it is necessary to define the Webdriver version, depending on which browser.version you are using or is installed on your local machine. To define browser.version and driver.version use Boni Garcia's [WebDriverManager](https://github.com/bonigarcia/webdrivermanager).|  
+| screen | If running tests on a multi monitor system, this parameter will move the browser window to the specified screen ID. |
+| selenium.grid | URL of Selenium grid server or a service which implements the Selenium grid protocol like Selenoid or Appium. |
 \* is mandatory
 
-### screen
+### Screen (TODO)
 
 If you have a multiple monitor system and want to have the browser window on a dedicated screen just use the screen parameter: 
       
@@ -50,7 +50,7 @@ If you have a multiple monitor system and want to have the browser window on a d
 Depending on your os the iDstring is different for your screens. GraphicsEnvironment Package is used. Use -DprintScreens=yes to get a list in log for next execution
 
 
-### Run tests with a selenium grid, selenoid or appium
+### Run tests with Selenium grid, Selenoid or Appium
 
     -Dselenium.grid=http://<ip-of-your-grid:4444>
 
@@ -62,8 +62,8 @@ Example runtime parameters:
     -Ddriver.version="76.0.3809.126"
 
 # Scenarios
-## Feature file structure
-For finding scenarios faster (especially if the fail) I used a template for scenarios with two components
+### Feature file structure
+In order to find scenarios faster - especially if they fail - a scenario template with two components is used:
 * Filename is given in "[ ]" (squared brackets)
 * Description of every scenario starts with [XXX-99 followed again with the [filename]
 
@@ -73,15 +73,15 @@ example:
     Feature: [peso] Example Feature
 
       Background:
-        Given the Startpage is loaded
+        Given the start page is loaded
 
       Scenario: [HWD-01 [peso]
-        Then the peso-logo should be displayed
+        Then the peso logo should be displayed
       
       
-[peso] means that peso is the filename, this makes it much easier to find steps if the IntelliJ-Runner or the jenkins-cucumber-reporter mark a scenario and/or a step if they are failing
+[peso] means that "peso" is the filename. This makes it much easier to locate steps when IntelliJ Runner or Jenkins Cucumber report mark a scenario or step as failed.
 
-scenarios have a unique ID. The ID is not checked anywhere, it is selforganzing, again if a scenario fails you can easily jump to the step definitions via text search in your IDE.
+Scenarios have a unique ID which you have to assign manually and keep track of. If a scenario fails, you can easily jump to the step definitions via text search in your IDE.
 
 
 //TODO add here screenshots from jenkins
@@ -90,31 +90,30 @@ scenarios have a unique ID. The ID is not checked anywhere, it is selforganzing,
 
 
 #Supported Browser
-Setup will be done via webDriverManger as mentioned above.
+Setup will be done via WebDriverManager as mentioned above.
 
-## chrome
-chrome or chromium which is supported by chromedriver. 
-## firefox
-
-## mobile-chrome emulation (with user-agent manipulation)
-This will use the experimental feature 
+### Chrome
+Chrome or Chromium which is supported by Chromedriver. 
+### Firefox
+(TODO)
+### Mobile Chrome emulation (with user agent manipulation)
+Chrome is used with a manipulated user agent, similar to the mobile view in browser developer mode.
+The following option is set in the DriverFactory: 
  `chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);`
 
-chrome is used with a manipluated user-agnet, similar to mobile view in browser developer mode
 
-## mobile-chrome (via selenoid)
-This only works if you have a selenoid or moon environment. Further information will follow.
+### Mobile-chrome (via Selenoid)
+This only works if you have a Selenoid or Moon environment. Further information will follow.
 
-example runtime configuration for an emulated Pixel 2 with a desktop chrome browser:
+Example of a runtime configuration for an emulated Pixel 2 with a desktop Chrome browser:
 
     -Dbrowser=chrome_mobile_emulation
     -Dbrowser.version=75.0
     -Ddriver.version=75
     -DbaseUrl="http://peso.inso.tuwien.ac.at"
-    -DprintScreens=yes
     -Demulated.device="Pixel 2"
-## Android device (via appium)
-You can use a emulated device (avd-manager) or an connected real Device which is supported by appium.
+### Android device (via Appium)
+You can use an emulated device (AVD Manager) or a connected real device, which both have to be supported by Appium.
 
 
     boris@xps13:~/Android/Sdk/platform-tools$ ./adb devices
@@ -122,10 +121,10 @@ You can use a emulated device (avd-manager) or an connected real Device which is
     emulator-5554	device
 
 
-Use Parameter to set the id `-Ddevice.id="emulator-5554"`
+Use parameter to set the ID `-Ddevice.id="emulator-5554"`
 
 
-example runtime configuration for an emulated 8.1 Android device:
+Example of runtime configuration for an emulated 8.1 Android device:
 
         -Dbrowser=android_device
         -DbaseUrl="http://peso.inso.tuwien.ac.at"
