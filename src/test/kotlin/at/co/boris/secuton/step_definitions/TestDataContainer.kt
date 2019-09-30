@@ -55,7 +55,10 @@ class TestDataContainer {
         return false
     }
 
-    fun needsInitializing(): Boolean = (testDataMap["initialized"] as Boolean)
+    fun needsInitializing(): Boolean {
+        val init = (testDataMap["initialized"] as Boolean)
+        return !init
+    }
 
     fun isLocalRun(): Boolean {
         return (testDataMap["localRun"] as Boolean)
