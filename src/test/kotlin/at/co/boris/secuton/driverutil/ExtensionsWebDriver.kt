@@ -25,6 +25,10 @@ fun RemoteWebDriver.isMobile(): Boolean {
         }
     }
 
+    if (caps.capabilityNames.contains("appiumVersion")) {
+        return true
+    }
+
     if (System.getProperty("browser", "not set").contains("emulation")) {
         return true
     }

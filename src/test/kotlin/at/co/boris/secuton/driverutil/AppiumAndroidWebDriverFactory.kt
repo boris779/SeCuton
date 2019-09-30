@@ -28,7 +28,6 @@ class AppiumAndroidWebDriverFactory : RemoteWebDriverFactory() {
         caps.setCapability("noReset", true)
 
         val appiumServer = URL("${getRemoteTestingServer()}/wd/hub")
-        webDriver = AndroidDriver<AndroidElement>(appiumServer, caps)
 
         try {
             webDriver = AndroidDriver<AndroidElement>(appiumServer, caps)
