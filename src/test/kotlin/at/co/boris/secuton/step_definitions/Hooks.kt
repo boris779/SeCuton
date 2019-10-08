@@ -2,6 +2,7 @@ package at.co.boris.secuton.step_definitions
 
 import at.co.boris.secuton.driverutil.WebDriverSessionStore
 import at.co.boris.secuton.driverutil.isMobile
+import io.appium.java_client.AppiumDriver
 import io.appium.java_client.android.AndroidDriver
 import io.cucumber.core.api.Scenario
 import io.cucumber.java.After
@@ -69,10 +70,10 @@ class Hooks(private val testDataContainer: TestDataContainer) {
                 scenario.write("isMobile active for used webdriver: $isMobile")
 
                 if (isMobile) {
-                    val currentContext = (webDriverSession.webDriver as AndroidDriver<*>).context
-                    (webDriverSession.webDriver as AndroidDriver<*>).context("NATIVE_APP")
+                    val currentContext = (webDriverSession.webDriver as AppiumDriver<*>).context
+                    (webDriverSession.webDriver as AppiumDriver<*>).context("NATIVE_APP")
                     scenario.embed((webDriverSession.webDriver as TakesScreenshot).getScreenshotAs(OutputType.BYTES), "image/png")
-                    (webDriverSession.webDriver as AndroidDriver<*>).context(currentContext)
+                    (webDriverSession.webDriver as AppiumDriver<*>).context(currentContext)
                 }
 
                 if (testDataContainer.isLocalRun()) {
