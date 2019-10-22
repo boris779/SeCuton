@@ -10,7 +10,6 @@ object WebDriverSessionStore {
         if (!store.containsKey(sessionName)) {
             store[sessionName] = WebDriverSession(sessionName)
         }
-
         return store[sessionName]!!
     }
 
@@ -18,4 +17,17 @@ object WebDriverSessionStore {
         store.remove(sessionName)?.webDriver?.quit()
     }
 
+    fun quitAll() {
+        val keys = store.keys
+        keys.forEach{
+            store[it]?.webDriver?.quit()
+        }
+    }
+
+    fun getIfExists(sessionName: String): WebDriverSession? {
+        if (store.containsKey(sessionName)) {
+            return store[sessionName]!!
+        }
+        return null
+    }
 }

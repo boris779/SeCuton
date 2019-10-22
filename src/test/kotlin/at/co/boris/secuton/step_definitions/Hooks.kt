@@ -27,6 +27,7 @@ class Hooks(private val testDataContainer: TestDataContainer) {
         testDataContainer.setTestData("browser.type", System.getProperty("browser", "no browser set"))
         testDataContainer.setTestData("browser.version", System.getProperty("browser.version", "no version set"))
         testDataContainer.setTestData("initialized", false)
+        testDataContainer.setTestData("baseurl", System.getProperty("baseUrl", "no base Url given"))
 
         // to check if it runs on Jenkins or local
         val jobname = System.getenv("JOB_NAME")
@@ -54,17 +55,17 @@ class Hooks(private val testDataContainer: TestDataContainer) {
 
     @After
     fun afterScenario(scenario: Scenario) {
-        val testId = extractTestIdFromScenarioName(scenario.name)
-        //FIXME wenn die Session nicht existiert, wird hier eine erstellt, das sollte aber nicht gemacht werden!
-        val webDriverSession = WebDriverSessionStore.get(testId)
+
+        val testId = testDataContainer.getTestId()
+        val webDriverSession = WebDriverSessionStore.getIfExists(testDataContainer.getCurrentSessionId())
 
         if (!scenario.isFailed) {
-            WebDriverSessionStore.remove(testId)
+            WebDriverSessionStore.quitAll()
             return
         }
 
 
-        if (webDriverSession.currentPage != null) {
+        if (webDriverSession?.currentPage != null) {
             try {
                 val isMobile = (webDriverSession.webDriver as RemoteWebDriver).isMobile()
                 scenario.write("isMobile active for used webdriver: $isMobile")
@@ -78,13 +79,13 @@ class Hooks(private val testDataContainer: TestDataContainer) {
 
                 if (testDataContainer.isLocalRun()) {
                     val screenshot = (webDriverSession.webDriver as TakesScreenshot).getScreenshotAs(OutputType.FILE)
-                    FileUtils.copyFile(screenshot, File(System.getProperty("user.dir") + "/target/error_selenium_$testId.png"))
+                    FileUtils.copyFile(screenshot, File(System.getProperty("user.dir") + "/target/error_selenium_${testId}_${testDataContainer.getCurrentSessionId()}.png"))
                 } else {
                     scenario.embed((webDriverSession.webDriver as TakesScreenshot).getScreenshotAs(OutputType.BYTES), "image/png")
                 }
 
             } finally {
-                WebDriverSessionStore.remove(testId)
+                WebDriverSessionStore.quitAll()
             }
         }
     }

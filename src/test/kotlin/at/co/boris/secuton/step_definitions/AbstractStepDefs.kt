@@ -15,10 +15,19 @@ import logger
 open class AbstractStepDefs(protected val testDataContainer: TestDataContainer) : En {
 
     private val log by logger()
+    private lateinit var currentSessionID: String
 
     fun getWebDriverSession(): WebDriverSession {
+        if (currentSessionID == null) {
+            testDataContainer.setTestData("session.id", testDataContainer.getTestId())
+            currentSessionID = testDataContainer.getTestId()
+        }
+        return getWebDriverSession(currentSessionID)
+    }
 
-        val webDriverSession = WebDriverSessionStore.get(testDataContainer.getTestId())
+    fun getWebDriverSession(sessionID: String): WebDriverSession {
+
+        val webDriverSession = WebDriverSessionStore.get(sessionID)
 
         if (testDataContainer.needsInitializing()) {
             if (webDriverSession.webDriver is RemoteWebDriver) {
@@ -32,6 +41,8 @@ open class AbstractStepDefs(protected val testDataContainer: TestDataContainer) 
 
             testDataContainer.setTestData("initialized", true)
         }
+        currentSessionID = sessionID
+        testDataContainer.setTestData("session.id", currentSessionID)
         return webDriverSession
     }
 

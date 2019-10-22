@@ -1,6 +1,7 @@
 package at.co.boris.secuton.step_definitions
 
 import io.cucumber.core.api.Scenario
+import java.util.*
 
 
 class TestDataContainer {
@@ -21,6 +22,17 @@ class TestDataContainer {
 
     fun setTestData(key: String, value: Any) {
         testDataMap[key] = value
+    }
+
+    fun getTestData(key: String): Any? {
+        if (testDataMap.containsKey(key)) {
+            return testDataMap[key]!!
+        }
+        return null
+    }
+
+    fun getCurrentSessionId(): String {
+        return testDataMap["session.id"] as String
     }
 
     private fun getBrowser(): String {
