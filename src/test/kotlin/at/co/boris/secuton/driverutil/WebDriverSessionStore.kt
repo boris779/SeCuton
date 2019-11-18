@@ -8,6 +8,7 @@ object WebDriverSessionStore {
     fun get(sessionName: String): WebDriverSession {
 
         if (!store.containsKey(sessionName)) {
+            //TODO log a warning or error if Appium is used, only one session on mobile phones!
             store[sessionName] = WebDriverSession(sessionName)
         }
         return store[sessionName]!!

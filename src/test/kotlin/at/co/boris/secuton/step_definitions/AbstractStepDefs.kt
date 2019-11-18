@@ -15,10 +15,10 @@ import logger
 open class AbstractStepDefs(protected val testDataContainer: TestDataContainer) : En {
 
     private val log by logger()
-    private lateinit var currentSessionID: String
+    private var currentSessionID: String = "not set"
 
     fun getWebDriverSession(): WebDriverSession {
-        if (currentSessionID == null) {
+        if (currentSessionID == "not set") {
             testDataContainer.setTestData("session.id", testDataContainer.getTestId())
             currentSessionID = testDataContainer.getTestId()
         }

@@ -13,6 +13,7 @@ class MainPageSteps(testDataContainer: TestDataContainer) : AbstractStepDefs(tes
 
             val eleLogoList = getPage(MainPage::class).getLogo()
 
+
             assertThat(eleLogoList!!.size, "found Logos via css").isGreaterThan(0)
             assertThat(eleLogoList[0].getAttribute("alt"), "checked the alternative Text from Logo").isEqualTo("PESO - Logo")
         }
