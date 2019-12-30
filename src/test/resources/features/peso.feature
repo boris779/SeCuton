@@ -1,11 +1,10 @@
 Feature: [peso] Example Feature
 
-  @boris
+
   Scenario: [PES-01 [peso]
     Given the start page is loaded
     Then the peso logo should be displayed
 
-    @boris
   Scenario: [PES-02 [peso]
     Given the start page is loaded
     When the team site is opened
@@ -20,3 +19,6 @@ Feature: [peso] Example Feature
     Then "User_1" should be still on start page
     And "User_2" should be still on team site
 
+
+
+    #add another example which is using picocontainer
