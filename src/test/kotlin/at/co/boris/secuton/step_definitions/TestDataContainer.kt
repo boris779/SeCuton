@@ -1,5 +1,6 @@
 package at.co.boris.secuton.step_definitions
 
+import at.co.boris.secuton.driverutil.DriverType
 import io.cucumber.core.api.Scenario
 import java.util.*
 
@@ -39,8 +40,8 @@ class TestDataContainer {
         return testDataMap["browser"] as String
     }
 
-    private fun getBrowserType(): String {
-        return testDataMap["browser.type"] as String
+    private fun getBrowserType(): DriverType {
+        return testDataMap.get("browser.type") as DriverType
     }
 
     private fun getBrowserVersion(): String {
@@ -56,7 +57,11 @@ class TestDataContainer {
             return true
         }
 
-        if (getBrowserType().contains("mobile")) {
+        if (getBrowserType() == DriverType.LOCAL_CHROME_MOBILE_EMULATION) {
+            return true
+        }
+
+        if (getBrowserType() == DriverType.REMOTE_CHROME_MOBILE_EMULATION) {
             return true
         }
 
@@ -65,6 +70,14 @@ class TestDataContainer {
         }
 
         return false
+    }
+
+    fun isMobileEmulation(): Boolean {
+        return when (getBrowserType()) {
+            DriverType.LOCAL_CHROME_MOBILE_EMULATION -> true
+            DriverType.REMOTE_CHROME_MOBILE_EMULATION -> true
+            else -> false
+        }
     }
 
     fun needsInitializing(): Boolean {

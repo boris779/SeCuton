@@ -19,8 +19,6 @@ object DriverFactory {
         val driverType = DriverType.valueOf(browserName)
 
 
-
-
         when (driverType) {
             DriverType.CHROME -> { //checked
                 webDriver = ChromeWebDriverFactory().createDriver()
@@ -38,7 +36,7 @@ object DriverFactory {
                 webDriver = OperaWebDriverFactory().createDriver()
             }
 
-            DriverType.CHROME_MOBILE_EMULATION -> { //checked
+            DriverType.LOCAL_CHROME_MOBILE_EMULATION -> { //checked
                 webDriver = ChromeMobileEmulationWebDriverFactory().createDriver()
             }
             /* REMOTE Implementations */
@@ -68,57 +66,7 @@ object DriverFactory {
 
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS)
 
-
-        /*   if (driverType != DriverType.ANDROID_DEVICE) {
-
-               var topLeft = Point(0, 0)
-
-               try {
-                   if (!GraphicsEnvironment.isHeadless()) {
-                       val graphicsDevice = getGraphicsDevice()
-                       topLeft = getTopLeftScreenPosition(graphicsDevice)
-                   }
-               } catch (e: NoClassDefFoundError) {
-                   log.debug("Graphics settings not initialized! $e")
-               } catch (e: RuntimeException) {
-                   log.debug("Graphics settings not initialized! $e")
-               }
-
-               webDriver.manage().window().position.moveBy(topLeft.x, topLeft.y)
-
-           } */
-
         return webDriver
     }
 
-
-    private fun getGraphicsDevice(): GraphicsDevice {
-        val screenSystemProperty = "screen"
-        val prefscreen = System.getProperty(screenSystemProperty)
-
-        if (System.getProperty("printScreens", "no") == "yes") {
-            log.debug("#######################################")
-            log.debug("Your screen id's: ")
-            GraphicsEnvironment.getLocalGraphicsEnvironment().screenDevices.forEach { log.debug(it.iDstring) }
-            log.debug("#######################################")
-        }
-
-
-        if (StringUtils.isNoneBlank(prefscreen)) {
-            val gdc = GraphicsEnvironment.getLocalGraphicsEnvironment().screenDevices
-
-            for (device in gdc) {
-                if (prefscreen == device.iDstring) {
-                    return device
-                }
-            }
-        }
-        return GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice
-    }
-
-
-    private fun getTopLeftScreenPosition(graphicsDevice: GraphicsDevice): Point {
-        val topLeft = graphicsDevice.defaultConfiguration.bounds
-        return Point(topLeft.x, topLeft.y)
-    }
 }

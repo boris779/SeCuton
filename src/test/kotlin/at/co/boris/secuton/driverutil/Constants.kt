@@ -15,7 +15,7 @@ enum class DriverType {
     APPIUM_ANDROID_DEVICE,
     REMOTE_CHROME_MOBILE,
     REMOTE_CHROME_MOBILE_EMULATION,
-    CHROME_MOBILE_EMULATION
+    LOCAL_CHROME_MOBILE_EMULATION
 }
 
 enum class ScreenDimension (val dimension: Dimension) {
