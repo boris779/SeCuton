@@ -6,6 +6,7 @@ import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URI
 
 class RemoteFirefoxWebDriverFactory : RemoteWebDriverFactory() {
+
     override fun createDriver(): WebDriver {
 
         caps.browserName = "firefox"

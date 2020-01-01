@@ -16,6 +16,7 @@ class RemoteChromeWebDriverFactory : RemoteWebDriverFactory() {
 
         webDriver = RemoteWebDriver(URI.create("${getRemoteTestingServer()}/wd/hub").toURL(), options)
         webDriver.manage().window().maximize()
+
         return webDriver
     }
 
