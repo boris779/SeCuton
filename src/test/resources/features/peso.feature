@@ -5,10 +5,11 @@ Feature: [peso] Example Feature
     Given the start page is loaded
     Then the peso logo should be displayed
 
+    @boris
   Scenario: [PES-02 [peso]
     Given the start page is loaded
     When the team site is opened
-    Then should "Boris Wrubel" be part of the Core team
+    Then should "Boris Wrubelllllll" be part of the Core team
 
   @no_mobile
   Scenario: [PES-03 [peso]

@@ -41,7 +41,7 @@ class TestDataContainer {
     }
 
     private fun getBrowserType(): DriverType {
-        return testDataMap.get("browser.type") as DriverType
+        return DriverType.valueOf(testDataMap.get("browser.type") as String)  as DriverType
     }
 
     private fun getBrowserVersion(): String {
@@ -73,11 +73,16 @@ class TestDataContainer {
     }
 
     fun isMobileEmulation(): Boolean {
-        return when (getBrowserType()) {
-            DriverType.LOCAL_CHROME_MOBILE_EMULATION -> true
-            DriverType.REMOTE_CHROME_MOBILE_EMULATION -> true
-            else -> false
+
+        if (testDataMap.containsKey("mobileEmulation")) {
+            return testDataMap["mobileEmulation"] as Boolean
         }
+        return false
+//        return when (getBrowserType()) {
+//            DriverType.LOCAL_CHROME_MOBILE_EMULATION -> true
+//            DriverType.REMOTE_CHROME_MOBILE_EMULATION -> true
+//            else -> false
+//        }
     }
 
     fun needsInitializing(): Boolean {
